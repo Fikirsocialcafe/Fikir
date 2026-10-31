@@ -41,7 +41,7 @@
     "subscription": {
       "eyebrow": "Subscription",
       "heading": "Your coffee, without having to remember to order it",
-      "text": "<p>Two 250 g bags as often as you like. Choose one origin or let us send you a different one each time.</p><p>Shipping included. Pause or cancel whenever you want.</p>",
+      "text_html": "<p>Two 250 g bags as often as you like. Choose one origin or let us send you a different one each time.</p><p>Shipping included. Pause or cancel whenever you want.</p>",
       "button": "See the subscription",
       "image_alt": "Fikir coffee bags on a living-room table"
     },
@@ -58,14 +58,14 @@
     "gift": {
       "eyebrow": "Gifts",
       "heading": "A gift that also supports others",
-      "text": "<p>The gift edition tin and the three-origin pack. Specialty coffee with a story to tell.</p>",
+      "text_html": "<p>The gift edition tin and the three-origin pack. Specialty coffee with a story to tell.</p>",
       "button": "See gifts",
       "image_alt": "Fikir gift tin with the line illustration"
     },
     "b2b": {
       "eyebrow": "Business",
       "heading": "Coffee with impact for your office or business",
-      "text": "<p>1 kg bags for offices, cafés and shops, plus corporate gifts. Tell us what you need and we'll prepare a proposal.</p>",
+      "text_html": "<p>1 kg bags for offices, cafés and shops, plus corporate gifts. Tell us what you need and we'll prepare a proposal.</p>",
       "button": "Talk to us",
       "image_alt": "Coffee bags from Ethiopia, Kenya and Uganda on a shelf"
     },
@@ -86,7 +86,7 @@
     "how": {
       "eyebrow": "How it works",
       "heading": "The profit goes back to where the coffee grows",
-      "text": "<p>Fikir Social Café is a company with a clear purpose: 100% of its annual net profit goes to social projects in Ethiopia, Kenya and Uganda.</p><p>The money goes to the country of the coffee you buy. If you choose Kenya, you support projects in Kenya.</p>",
+      "text_html": "<p>Fikir Social Café is a company with a clear purpose: 100% of its annual net profit goes to social projects in Ethiopia, Kenya and Uganda.</p><p>The money goes to the country of the coffee you buy. If you choose Kenya, you support projects in Kenya.</p>",
       "image_alt": "Women from an East African community in traditional dress"
     },
     "steps": {
@@ -102,7 +102,7 @@
     "origin": {
       "eyebrow": "Smallholder farmers",
       "heading": "Coffees with a name and a place",
-      "text": "<p>We work with lots from smallholder farmers and cooperatives in Sidamo (Ethiopia), Nyeri (Kenya) and Rubirizi and Kasese (Uganda). Each coffee page tells you the region, altitude, variety and process.</p>",
+      "text_html": "<p>We work with lots from smallholder farmers and cooperatives in Sidamo (Ethiopia), Nyeri (Kenya) and Rubirizi and Kasese (Uganda). Each coffee page tells you the region, altitude, variety and process.</p>",
       "button": "Shop the coffees",
       "image_alt": "Farmers picking coffee on an East African plantation"
     }
@@ -111,13 +111,13 @@
     "story": {
       "eyebrow": "Our story",
       "heading": "Fikir means love",
-      "text": "<p>In Amharic, the language of Ethiopia. Fikir didn't start as a business. It started after living in Kenya and Ethiopia and working for two years at an orphanage in Meki.</p><p>A simple idea came back from there: that the coffee we drink every day should help the communities that grow it. That's why the net profit goes back to the countries of origin.</p>",
+      "text_html": "<p>In Amharic, the language of Ethiopia. Fikir didn't start as a business. It started after living in Kenya and Ethiopia and working for two years at an orphanage in Meki.</p><p>A simple idea came back from there: that the coffee we drink every day should help the communities that grow it. That's why the net profit goes back to the countries of origin.</p>",
       "image_alt": "Pablo Esteve Rozas, founder of Fikir, in Meki (Ethiopia)"
     },
     "roast": {
       "eyebrow": "The coffee",
       "heading": "Specialty, medium roast and small batches",
-      "text": "<p>We select specialty coffees from smallholder farmers and give them a medium roast, so the origin comes through. Every bag shows its roast date and batch.</p>",
+      "text_html": "<p>We select specialty coffees from smallholder farmers and give them a medium roast, so the origin comes through. Every bag shows its roast date and batch.</p>",
       "image_alt": "Coffee beans roasting in a drum with steam"
     },
     "values": {
@@ -135,7 +135,7 @@
     "offer": {
       "eyebrow": "For business",
       "heading": "Specialty coffee that also says something",
-      "text": "<ul><li>Offices: 1 kg bags, whole bean or ground.</li><li>Cafés and shops: coffee to serve or resell.</li><li>Corporate gifts: tins and packs for clients and teams.</li></ul><p>With every order, your company supports social projects in Ethiopia, Kenya and Uganda.</p>",
+      "text_html": "<ul><li>Offices: 1 kg bags, whole bean or ground.</li><li>Cafés and shops: coffee to serve or resell.</li><li>Corporate gifts: tins and packs for clients and teams.</li></ul><p>With every order, your company supports social projects in Ethiopia, Kenya and Uganda.</p>",
       "image_alt": "Fikir bags with whole beans and ground coffee"
     },
     "steps": {
@@ -151,7 +151,7 @@
     "impact": {
       "eyebrow": "Impact",
       "heading": "A supplier that adds to your social responsibility",
-      "text": "<p>100% of Fikir Social Café's annual net profit is reinvested in social projects in the countries of origin. It's something you can share with your team and your clients.</p>",
+      "text_html": "<p>100% of Fikir Social Café's annual net profit is reinvested in social projects in the countries of origin. It's something you can share with your team and your clients.</p>",
       "image_alt": "Coffee harvest on an East African plantation"
     }
   },

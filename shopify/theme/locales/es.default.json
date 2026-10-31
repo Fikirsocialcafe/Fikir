@@ -41,7 +41,7 @@
     "subscription": {
       "eyebrow": "Suscripción",
       "heading": "Tu café, sin acordarte de pedirlo",
-      "text": "<p>Dos bolsas de 250 g con la frecuencia que elijas. Escoge un origen o deja que te enviemos uno distinto cada vez.</p><p>Envío incluido. Pausa o cancela cuando quieras.</p>",
+      "text_html": "<p>Dos bolsas de 250 g con la frecuencia que elijas. Escoge un origen o deja que te enviemos uno distinto cada vez.</p><p>Envío incluido. Pausa o cancela cuando quieras.</p>",
       "button": "Ver la suscripción",
       "image_alt": "Bolsas de café Fikir sobre una mesa de salón"
     },
@@ -58,14 +58,14 @@
     "gift": {
       "eyebrow": "Para regalar",
       "heading": "Un regalo que también apoya a otros",
-      "text": "<p>La edición regalo en lata y el pack de tres orígenes. Café de especialidad con una historia que contar.</p>",
+      "text_html": "<p>La edición regalo en lata y el pack de tres orígenes. Café de especialidad con una historia que contar.</p>",
       "button": "Ver regalos",
       "image_alt": "Lata de regalo de Fikir con la ilustración de línea"
     },
     "b2b": {
       "eyebrow": "Empresas",
       "heading": "Café con impacto para tu oficina o tu negocio",
-      "text": "<p>Bolsas de 1 kg para oficinas, cafeterías y tiendas, y regalos de empresa. Cuéntanos qué necesitas y te preparamos una propuesta.</p>",
+      "text_html": "<p>Bolsas de 1 kg para oficinas, cafeterías y tiendas, y regalos de empresa. Cuéntanos qué necesitas y te preparamos una propuesta.</p>",
       "button": "Hablar con nosotros",
       "image_alt": "Bolsas de café de Etiopía, Kenia y Uganda en una estantería"
     },
@@ -86,7 +86,7 @@
     "how": {
       "eyebrow": "Cómo funciona",
       "heading": "El beneficio vuelve a donde nace el café",
-      "text": "<p>Fikir Social Café es una empresa con un propósito claro: el 100 % del beneficio neto anual se destina a proyectos sociales en Etiopía, Kenia y Uganda.</p><p>El dinero va al país del café que compras. Si eliges Kenia, apoyas proyectos en Kenia.</p>",
+      "text_html": "<p>Fikir Social Café es una empresa con un propósito claro: el 100 % del beneficio neto anual se destina a proyectos sociales en Etiopía, Kenia y Uganda.</p><p>El dinero va al país del café que compras. Si eliges Kenia, apoyas proyectos en Kenia.</p>",
       "image_alt": "Mujeres de una comunidad de África Oriental con vestimenta tradicional"
     },
     "steps": {
@@ -102,7 +102,7 @@
     "origin": {
       "eyebrow": "Pequeños productores",
       "heading": "Cafés con nombre y lugar",
-      "text": "<p>Trabajamos con lotes de pequeños productores y cooperativas de Sidamo (Etiopía), Nyeri (Kenia) y Rubirizi y Kasese (Uganda). En cada ficha te contamos la región, la altitud, la variedad y el proceso.</p>",
+      "text_html": "<p>Trabajamos con lotes de pequeños productores y cooperativas de Sidamo (Etiopía), Nyeri (Kenia) y Rubirizi y Kasese (Uganda). En cada ficha te contamos la región, la altitud, la variedad y el proceso.</p>",
       "button": "Ver los cafés",
       "image_alt": "Agricultores recolectando café en una plantación de África Oriental"
     }
@@ -111,13 +111,13 @@
     "story": {
       "eyebrow": "Nuestra historia",
       "heading": "Fikir significa amor",
-      "text": "<p>En amárico, la lengua de Etiopía. Fikir no empezó como un negocio. Empezó después de vivir en Kenia y Etiopía y de trabajar dos años en un orfanato en Meki.</p><p>De allí volvió una idea sencilla: que el café que tomamos cada día ayude a las comunidades que lo cultivan. Por eso el beneficio neto vuelve a los países de origen.</p>",
+      "text_html": "<p>En amárico, la lengua de Etiopía. Fikir no empezó como un negocio. Empezó después de vivir en Kenia y Etiopía y de trabajar dos años en un orfanato en Meki.</p><p>De allí volvió una idea sencilla: que el café que tomamos cada día ayude a las comunidades que lo cultivan. Por eso el beneficio neto vuelve a los países de origen.</p>",
       "image_alt": "Pablo Esteve Rozas, fundador de Fikir, en Meki (Etiopía)"
     },
     "roast": {
       "eyebrow": "El café",
       "heading": "Especialidad, tueste medio y lotes pequeños",
-      "text": "<p>Seleccionamos cafés de especialidad de pequeños productores y los tostamos en tueste medio, para que se note el origen. Cada bolsa lleva la fecha de tueste y el lote.</p>",
+      "text_html": "<p>Seleccionamos cafés de especialidad de pequeños productores y los tostamos en tueste medio, para que se note el origen. Cada bolsa lleva la fecha de tueste y el lote.</p>",
       "image_alt": "Granos de café tostándose en un tambor con vapor"
     },
     "values": {
@@ -135,7 +135,7 @@
     "offer": {
       "eyebrow": "Para empresas",
       "heading": "Café de especialidad que también cuenta algo",
-      "text": "<ul><li>Oficinas: bolsas de 1 kg, en grano o molido.</li><li>Cafeterías y tiendas: café para servir o revender.</li><li>Regalos de empresa: latas y packs para clientes y equipos.</li></ul><p>Con cada pedido, tu empresa apoya proyectos sociales en Etiopía, Kenia y Uganda.</p>",
+      "text_html": "<ul><li>Oficinas: bolsas de 1 kg, en grano o molido.</li><li>Cafeterías y tiendas: café para servir o revender.</li><li>Regalos de empresa: latas y packs para clientes y equipos.</li></ul><p>Con cada pedido, tu empresa apoya proyectos sociales en Etiopía, Kenia y Uganda.</p>",
       "image_alt": "Bolsas de Fikir con granos y café molido"
     },
     "steps": {
@@ -151,7 +151,7 @@
     "impact": {
       "eyebrow": "Impacto",
       "heading": "Un proveedor que suma a tu responsabilidad social",
-      "text": "<p>El 100 % del beneficio neto anual de Fikir Social Café se reinvierte en proyectos sociales en los países de origen. Es un dato que puedes contar a tu equipo y a tus clientes.</p>",
+      "text_html": "<p>El 100 % del beneficio neto anual de Fikir Social Café se reinvierte en proyectos sociales en los países de origen. Es un dato que puedes contar a tu equipo y a tus clientes.</p>",
       "image_alt": "Recolección de café en una plantación de África Oriental"
     }
   },
