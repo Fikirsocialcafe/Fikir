@@ -1,0 +1,49 @@
+{%- liquid
+  assign k = section.settings.key
+  assign eyebrow_key = k | append: '.eyebrow'
+  assign heading_key = k | append: '.heading'
+  assign text_key = k | append: '.text'
+  assign button_key = k | append: '.button'
+  assign alt_key = k | append: '.image_alt'
+-%}
+<section class="section{% if section.settings.background == 'deep' %} section--deep{% elsif section.settings.background == 'white' %} section--white{% endif %} {{ section.settings.accent }}">
+  <div class="page-width split{% if section.settings.reverse %} split--reverse{% endif %}">
+    <div class="split__media{% if section.settings.wide %} split__media--wide{% endif %}">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 860px) 50vw, 100vw', widths: '600, 900, 1200, 1400' }}
+      {%- elsif section.settings.asset != blank -%}
+        <img src="{{ section.settings.asset | asset_url }}" alt="{{ alt_key | t }}" loading="lazy" width="1200" height="1500">
+      {%- endif -%}
+    </div>
+    <div>
+      <span class="eyebrow">{% render 'text', value: section.settings.eyebrow, key: eyebrow_key %}</span>
+      <h2>{% render 'text', value: section.settings.heading, key: heading_key %}</h2>
+      <hr class="rule">
+      <div class="rte muted">{% if section.settings.text != blank %}{{ section.settings.text }}{% else %}{{ text_key | t }}{% endif %}</div>
+      {%- if section.settings.link != blank -%}
+        <div class="button-row"><a class="button{% if section.settings.secondary %} button--secondary{% endif %}" href="{{ section.settings.link }}">{% render 'text', value: section.settings.button_label, key: button_key %}</a></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Imagen con texto",
+  "settings": [
+    { "type": "text", "id": "key", "label": "Bloque de textos traducidos", "info": "Ej.: home.subscription. Los campos vacíos usan estos textos en ES/EN." },
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo" },
+    { "type": "text", "id": "heading", "label": "Titular" },
+    { "type": "richtext", "id": "text", "label": "Texto" },
+    { "type": "text", "id": "button_label", "label": "Texto del botón" },
+    { "type": "url", "id": "link", "label": "Enlace del botón" },
+    { "type": "checkbox", "id": "secondary", "label": "Botón secundario", "default": false },
+    { "type": "image_picker", "id": "image", "label": "Imagen" },
+    { "type": "text", "id": "asset", "label": "Imagen incluida (archivo del tema)" },
+    { "type": "checkbox", "id": "wide", "label": "Imagen apaisada", "default": false },
+    { "type": "checkbox", "id": "reverse", "label": "Imagen a la derecha", "default": false },
+    { "type": "select", "id": "accent", "label": "Acento", "default": "", "options": [{ "value": "", "label": "Tinta" }, { "value": "accent-etiopia", "label": "Etiopía" }, { "value": "accent-kenia", "label": "Kenia" }, { "value": "accent-uganda", "label": "Uganda" }] },
+    { "type": "select", "id": "background", "label": "Fondo", "default": "cream", "options": [{ "value": "cream", "label": "Crema" }, { "value": "deep", "label": "Crema oscuro" }, { "value": "white", "label": "Blanco" }] }
+  ],
+  "presets": [{ "name": "Imagen con texto" }]
+}
+{% endschema %}

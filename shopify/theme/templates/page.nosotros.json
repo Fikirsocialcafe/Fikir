@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "header": { "type": "page-header", "settings": { "key": "pages.about" } },
+    "story": { "type": "image-with-text", "settings": { "key": "about.story", "asset": "fundador-meki.jpg" } },
+    "quote": { "type": "quote", "settings": {} },
+    "roast": { "type": "image-with-text", "settings": { "key": "about.roast", "asset": "origen-tostado.jpg", "wide": true, "reverse": true, "background": "deep" } },
+    "values": { "type": "steps", "settings": { "key": "about.values" } },
+    "impact": { "type": "impact", "settings": { "style": "ink", "show_button": true } }
+  },
+  "order": ["header", "story", "quote", "roast", "values", "impact"]
+}

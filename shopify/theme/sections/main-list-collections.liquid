@@ -1,0 +1,20 @@
+<section class="section">
+  <div class="page-width">
+    <h1 class="h2">{{ 'collection.list_title' | t }}</h1>
+    <div class="grid grid--3" style="margin-top:32px">
+      {%- for collection in collections -%}
+        {%- unless collection.handle == 'frontpage' or collection.handle == 'bolsas' -%}
+          <a class="card" href="{{ collection.url }}">
+            <div class="card__media">
+              {%- if collection.featured_image -%}{{ collection.featured_image | image_url: width: 800 | image_tag: loading: 'lazy' }}{%- elsif collection.products.first.featured_media -%}{{ collection.products.first.featured_media | image_url: width: 800 | image_tag: loading: 'lazy' }}{%- endif -%}
+            </div>
+            <div class="card__body"><h3 class="card__title">{{ collection.title }}</h3></div>
+          </a>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Lista de colecciones", "settings": [] }
+{% endschema %}

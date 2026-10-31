@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": { "asset": "home-hero.jpg" } },
+    "trust": { "type": "trust-bar", "settings": {} },
+    "origins": { "type": "featured-collection", "settings": { "eyebrow_key": "home.featured.eyebrow", "heading_key": "home.featured.heading", "text_key": "home.featured.text", "collection": "cafes-de-origen", "limit": 4, "columns": "4", "background": "cream" } },
+    "impact": { "type": "impact", "settings": { "style": "ink", "show_button": true } },
+    "subscription": { "type": "image-with-text", "settings": { "key": "home.subscription", "asset": "prod-suscripcion.jpg", "link": "/collections/suscripcion", "background": "deep" } },
+    "steps": { "type": "steps", "settings": { "key": "home.steps", "background": "cream" } },
+    "gift": { "type": "image-with-text", "settings": { "key": "home.gift", "asset": "lata-angulo.jpg", "link": "/collections/packs-y-regalos", "reverse": true, "background": "white" } },
+    "quote": { "type": "quote", "settings": {} },
+    "b2b": { "type": "image-with-text", "settings": { "key": "home.b2b", "asset": "home-estanteria.jpg", "link": "/pages/empresas", "secondary": true, "background": "deep" } },
+    "faq": { "type": "faq", "settings": { "key": "faq.home", "count": 6 } }
+  },
+  "order": ["hero", "trust", "origins", "impact", "subscription", "steps", "gift", "quote", "b2b", "faq"]
+}

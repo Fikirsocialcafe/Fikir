@@ -1,0 +1,14 @@
+<div class="announcement">
+  {%- if section.settings.link != blank -%}<a href="{{ section.settings.link }}">{%- endif -%}
+  {%- if section.settings.text != blank -%}{{ section.settings.text }}{%- else -%}{{ 'announcement.default' | t }}{%- endif -%}
+  {%- if section.settings.link != blank -%}</a>{%- endif -%}
+</div>
+{% schema %}
+{
+  "name": "Barra de anuncio",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Texto", "info": "Vacío: usa el texto traducido por defecto (envío gratis desde 50 €)." },
+    { "type": "url", "id": "link", "label": "Enlace" }
+  ]
+}
+{% endschema %}

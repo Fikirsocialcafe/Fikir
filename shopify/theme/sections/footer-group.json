@@ -1,0 +1,8 @@
+{
+  "type": "footer",
+  "name": "Pie",
+  "sections": {
+    "footer": { "type": "footer", "settings": { "about": "", "menu_shop": "tienda", "menu_info": "footer" } }
+  },
+  "order": ["footer"]
+}

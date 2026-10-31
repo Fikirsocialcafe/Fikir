@@ -1,0 +1,30 @@
+<a href="{{ product.url }}" class="card {% render 'accent-class', product: product %}">
+  <div class="card__media">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 1000px) 25vw, 50vw', widths: '360, 540, 720, 900', alt: product.featured_media.alt | default: product.title }}
+    {%- endif -%}
+    {%- if product.tags contains 'suscripcion' -%}
+      <span class="card__badge">{{ 'product.badge_subscription' | t }}</span>
+    {%- elsif product.tags contains '1kg' -%}
+      <span class="card__badge">1 kg</span>
+    {%- elsif product.compare_at_price > product.price -%}
+      <span class="card__badge">{{ 'product.badge_sale' | t }}</span>
+    {%- endif -%}
+  </div>
+  <div class="card__body">
+    {%- if product.metafields.custom.pais != blank -%}
+      <span class="card__origin">{{ product.metafields.custom.pais }}</span>
+    {%- else -%}
+      <span class="card__origin">{{ product.type }}</span>
+    {%- endif -%}
+    <h3 class="card__title">{{ product.title }}</h3>
+    {%- if product.metafields.custom.notas != blank -%}
+      <span class="card__notes">{{ product.metafields.custom.notas }}</span>
+    {%- endif -%}
+    <span class="card__price">
+      {%- if product.price_varies -%}{{ 'product.from' | t }} {% endif -%}
+      {{ product.price | money }}
+      {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+    </span>
+  </div>
+</a>

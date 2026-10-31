@@ -1,0 +1,23 @@
+{%- assign k = section.settings.key -%}
+<section class="section{% if section.settings.background == 'deep' %} section--deep{% elsif section.settings.background == 'white' %} section--white{% endif %}">
+  <div class="page-width page-width--narrow {% if section.settings.center %}center{% endif %}">
+    {%- if k != blank -%}
+      <span class="eyebrow">{{ k | append: '.eyebrow' | t }}</span>
+      <h2>{{ k | append: '.heading' | t }}</h2>
+      <div class="rte muted">{{ k | append: '.text_html' | t }}</div>
+    {%- endif -%}
+    {%- if section.settings.content != blank -%}<div class="rte">{{ section.settings.content }}</div>{%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Texto",
+  "settings": [
+    { "type": "text", "id": "key", "label": "Bloque de textos traducidos" },
+    { "type": "richtext", "id": "content", "label": "Texto adicional" },
+    { "type": "checkbox", "id": "center", "label": "Centrado", "default": false },
+    { "type": "select", "id": "background", "label": "Fondo", "default": "cream", "options": [{ "value": "cream", "label": "Crema" }, { "value": "deep", "label": "Crema oscuro" }, { "value": "white", "label": "Blanco" }] }
+  ],
+  "presets": [{ "name": "Texto" }]
+}
+{% endschema %}

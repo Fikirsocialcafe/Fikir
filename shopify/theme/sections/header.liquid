@@ -1,0 +1,44 @@
+{%- liquid
+  assign menu = section.settings.menu
+-%}
+<header class="header">
+  <div class="page-width header__inner">
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="{{ 'general.menu' | t }}">{% render 'icon', name: 'menu' %}</button>
+      <nav class="header__nav" aria-label="{{ 'general.menu' | t }}">
+        <ul>
+          {%- for link in menu.links -%}
+            <li><a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    </div>
+    <a class="header__logo" href="{{ routes.root_url }}" aria-label="Fikir Social Café">
+      {% render 'logo' %}
+      <span class="brand">Fikir Social<br>Café</span>
+    </a>
+    <div class="header__actions">
+      {% render 'localization', id: 'header' %}
+      <a class="icon-button" href="{{ routes.cart_url }}" data-drawer-open aria-label="{{ 'cart.title' | t }}">
+        {% render 'icon', name: 'cart' %}
+        <span class="cart-count" data-cart-count data-count="{{ cart.item_count }}">{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <ul>
+      {%- for link in menu.links -%}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {%- endfor -%}
+    </ul>
+    {% render 'localization', id: 'mobile' %}
+  </div>
+</header>
+{% schema %}
+{
+  "name": "Cabecera",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menú", "default": "main-menu" }
+  ]
+}
+{% endschema %}

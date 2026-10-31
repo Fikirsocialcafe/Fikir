@@ -1,0 +1,35 @@
+<section class="hero section--deep">
+  <div class="hero__content">
+    <span class="eyebrow">{% render 'text', value: section.settings.eyebrow, key: 'home.hero.eyebrow' %}</span>
+    <h1>{% render 'text', value: section.settings.heading, key: 'home.hero.heading' %}</h1>
+    <p class="lead">{% render 'text', value: section.settings.text, key: 'home.hero.text' %}</p>
+    <div class="button-row">
+      <a class="button" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{% render 'text', value: section.settings.button_label, key: 'home.hero.button' %}</a>
+      <a class="button button--secondary" href="{{ section.settings.button2_link | default: '/pages/impacto' }}">{% render 'text', value: section.settings.button2_label, key: 'home.hero.button2' %}</a>
+    </div>
+  </div>
+  <div class="hero__media">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 1800 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 860px) 50vw, 100vw', widths: '600, 900, 1200, 1800' }}
+    {%- else -%}
+      <img src="{{ section.settings.asset | default: 'home-hero.jpg' | asset_url }}" alt="{{ 'home.hero.image_alt' | t }}" width="1600" height="1067" loading="eager" fetchpriority="high">
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Portada",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo" },
+    { "type": "textarea", "id": "heading", "label": "Titular" },
+    { "type": "textarea", "id": "text", "label": "Texto" },
+    { "type": "text", "id": "button_label", "label": "Botón principal" },
+    { "type": "url", "id": "button_link", "label": "Enlace botón principal" },
+    { "type": "text", "id": "button2_label", "label": "Botón secundario" },
+    { "type": "url", "id": "button2_link", "label": "Enlace botón secundario" },
+    { "type": "image_picker", "id": "image", "label": "Imagen" },
+    { "type": "text", "id": "asset", "label": "Imagen incluida (archivo del tema)", "default": "home-hero.jpg" }
+  ],
+  "presets": [{ "name": "Portada" }]
+}
+{% endschema %}

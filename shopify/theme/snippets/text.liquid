@@ -1,0 +1,2 @@
+{%- comment -%} Muestra el texto del editor o, si está vacío, el texto traducido por defecto (ES/EN). {%- endcomment -%}
+{%- if value != blank -%}{{ value }}{%- else -%}{{ key | t }}{%- endif -%}

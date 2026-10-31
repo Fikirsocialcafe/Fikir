@@ -1,0 +1,24 @@
+{%- assign related = collections['cafes-de-origen'] -%}
+<section class="section">
+  <div class="page-width">
+    <div class="section-header"><h2>{{ 'product.related' | t }}</h2></div>
+    <div class="grid grid--4">
+      {%- assign shown = 0 -%}
+      {%- for p in related.products -%}
+        {%- if p.id != product.id and shown < 4 -%}
+          {% render 'product-card', product: p %}
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for p in collections['packs-y-regalos'].products -%}
+        {%- if p.id != product.id and shown < 4 -%}
+          {% render 'product-card', product: p %}
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Productos relacionados", "settings": [] }
+{% endschema %}

@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "header": { "type": "page-header", "settings": { "key": "pages.contact" } },
+    "form": { "type": "contact-form", "settings": { "mode": "contact" } },
+    "faq": { "type": "faq", "settings": { "key": "faq.home", "count": 6, "background": "deep" } }
+  },
+  "order": ["header", "form", "faq"]
+}

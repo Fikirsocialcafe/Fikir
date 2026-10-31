@@ -1,0 +1,11 @@
+{%- if localization.available_languages.size > 1 -%}
+  {%- form 'localization', class: 'localization', data-localization: '' -%}
+    <label class="visually-hidden" for="locale-{{ id }}">{{ 'general.language' | t }}</label>
+    <select id="locale-{{ id }}" name="locale_code">
+      {%- for language in localization.available_languages -%}
+        <option value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}selected{% endif %}>{{ language.iso_code | upcase }}</option>
+      {%- endfor -%}
+    </select>
+    <noscript><button type="submit">OK</button></noscript>
+  {%- endform -%}
+{%- endif -%}
