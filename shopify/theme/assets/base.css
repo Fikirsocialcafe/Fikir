@@ -156,7 +156,8 @@ p { margin: 0 0 1em; }
 .grid--4 { grid-template-columns: repeat(4, 1fr); }
 .grid--3 { grid-template-columns: repeat(3, 1fr); }
 .grid--2 { grid-template-columns: repeat(2, 1fr); }
-@media (max-width: 1000px) { .grid--4 { grid-template-columns: repeat(2, 1fr); } .grid--3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 1100px) { .grid--4 { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px) { .grid--4, .grid--3 { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .grid--3, .grid--2 { grid-template-columns: 1fr; } .grid--4 { grid-template-columns: 1fr 1fr; gap: 14px; } }
 
 .card { display: flex; flex-direction: column; text-decoration: none; height: 100%; }
