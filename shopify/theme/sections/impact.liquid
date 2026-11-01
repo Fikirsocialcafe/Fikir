@@ -1,0 +1,35 @@
+<section class="section {% if section.settings.style == 'ink' %}section--ink{% else %}section--deep{% endif %}">
+  <div class="page-width center">
+    <span class="eyebrow" style="color:inherit;opacity:.75">{% render 'text', value: section.settings.eyebrow, key: 'impact.eyebrow' %}</span>
+    <p class="impact__statement">{% render 'text', value: section.settings.statement, key: 'impact.statement' %}</p>
+    <div class="countries">
+      <div class="country accent-etiopia">
+        <h3>{{ 'origins.ethiopia' | t }}</h3>
+        <p>{{ 'impact.ethiopia' | t }}</p>
+      </div>
+      <div class="country accent-kenia">
+        <h3>{{ 'origins.kenya' | t }}</h3>
+        <p>{{ 'impact.kenya' | t }}</p>
+      </div>
+      <div class="country accent-uganda">
+        <h3>{{ 'origins.uganda' | t }}</h3>
+        <p>{{ 'impact.uganda' | t }}</p>
+      </div>
+    </div>
+    {%- if section.settings.show_button -%}
+      <div class="button-row"><a class="button button--secondary" href="/pages/impacto">{{ 'impact.button' | t }}</a></div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Impacto",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo" },
+    { "type": "textarea", "id": "statement", "label": "Frase principal" },
+    { "type": "select", "id": "style", "label": "Estilo", "default": "ink", "options": [{ "value": "ink", "label": "Tinta" }, { "value": "deep", "label": "Crema" }] },
+    { "type": "checkbox", "id": "show_button", "label": "Mostrar botón", "default": true }
+  ],
+  "presets": [{ "name": "Impacto" }]
+}
+{% endschema %}

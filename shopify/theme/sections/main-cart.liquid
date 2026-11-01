@@ -1,0 +1,25 @@
+<section class="section">
+  <div class="page-width">
+    <h1 class="h2">{{ 'cart.title' | t }}</h1>
+    {%- if cart.item_count > 0 -%}
+      <div class="cart-page">
+        <form action="{{ routes.cart_url }}" method="post" id="cart-form" novalidate>
+          {% render 'cart-lines', form_mode: 'page' %}
+          <div class="button-row"><button class="button button--secondary" type="submit" name="update">{{ 'cart.update' | t }}</button></div>
+        </form>
+        <div>
+          {% render 'shipping-bar' %}
+          {% render 'cart-summary', form_mode: 'page' %}
+        </div>
+      </div>
+    {%- else -%}
+      <div class="empty-state">
+        <p>{{ 'cart.empty' | t }}</p>
+        <a class="button" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Carrito", "settings": [] }
+{% endschema %}

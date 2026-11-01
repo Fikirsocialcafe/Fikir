@@ -1,0 +1,31 @@
+{%- assign k = section.settings.key -%}
+<section class="section{% if section.settings.background == 'deep' %} section--deep{% endif %}">
+  <div class="page-width">
+    <div class="section-header">
+      <div>
+        <span class="eyebrow">{{ k | append: '.eyebrow' | t }}</span>
+        <h2>{{ k | append: '.heading' | t }}</h2>
+      </div>
+    </div>
+    <div class="steps">
+      {%- for i in (1..3) -%}
+        {%- capture title_key -%}{{ k }}.step{{ i }}_title{%- endcapture -%}
+        {%- capture text_key -%}{{ k }}.step{{ i }}_text{%- endcapture -%}
+        <div class="step">
+          <h3>{{ title_key | t }}</h3>
+          <p class="muted">{{ text_key | t }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Pasos",
+  "settings": [
+    { "type": "text", "id": "key", "label": "Bloque de textos traducidos", "default": "home.steps" },
+    { "type": "select", "id": "background", "label": "Fondo", "default": "cream", "options": [{ "value": "cream", "label": "Crema" }, { "value": "deep", "label": "Crema oscuro" }] }
+  ],
+  "presets": [{ "name": "Pasos" }]
+}
+{% endschema %}

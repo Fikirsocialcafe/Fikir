@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "header": { "type": "page-header", "settings": { "key": "pages.impact" } },
+    "how": { "type": "image-with-text", "settings": { "key": "impact_page.how", "asset": "origen-comunidad.jpg" } },
+    "countries": { "type": "impact", "settings": { "style": "ink", "show_button": false } },
+    "steps": { "type": "steps", "settings": { "key": "impact_page.steps" } },
+    "origin": { "type": "image-with-text", "settings": { "key": "impact_page.origin", "asset": "origen-recoleccion.jpg", "wide": true, "reverse": true, "background": "deep", "link": "/collections/cafes-de-origen" } },
+    "faq": { "type": "faq", "settings": { "key": "faq.impact", "count": 4 } }
+  },
+  "order": ["header", "how", "countries", "steps", "origin", "faq"]
+}

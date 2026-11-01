@@ -1,0 +1,11 @@
+<div class="trust">
+  <ul class="page-width">
+    <li>{% render 'icon', name: 'bean' %}<span>{{ 'trust.specialty' | t }}</span></li>
+    <li>{% render 'icon', name: 'heart' %}<span>{{ 'trust.profit' | t }}</span></li>
+    <li>{% render 'icon', name: 'truck' %}<span>{{ 'trust.shipping' | t: amount: settings.free_shipping_threshold }}</span></li>
+    <li>{% render 'icon', name: 'lock' %}<span>{{ 'trust.payment' | t }}</span></li>
+  </ul>
+</div>
+{% schema %}
+{ "name": "Franja de confianza", "settings": [], "presets": [{ "name": "Franja de confianza" }] }
+{% endschema %}

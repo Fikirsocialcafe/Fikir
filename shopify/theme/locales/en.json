@@ -1,0 +1,356 @@
+{
+  "general": {
+    "page": "Page {{ page }}",
+    "meta_description": "Specialty coffee from Ethiopia, Kenya and Uganda. Fikir Social Café reinvests 100% of its net profit in social projects in the countries of origin.",
+    "skip_to_content": "Skip to content",
+    "close": "Close",
+    "menu": "Menu",
+    "language": "Language",
+    "view_all": "View all",
+    "404_title": "This page doesn't exist",
+    "404_text": "The link may have changed. Head back to the shop and find your coffee."
+  },
+  "announcement": {
+    "default": "Free shipping on mainland Spain from €50",
+    "extra": "Delivered in 3-5 working days"
+  },
+  "trust": {
+    "specialty": "Specialty coffee from smallholder farmers",
+    "profit": "100% of net profit goes back to origin",
+    "shipping": "Free shipping from €{{ amount }}",
+    "payment": "Secure payment by card, Bizum and more"
+  },
+  "origins": {
+    "ethiopia": "Ethiopia",
+    "kenya": "Kenya",
+    "uganda": "Uganda"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Specialty coffee · East Africa",
+      "heading": "What connects us shouldn't be unfair.",
+      "text": "We roast coffee from Ethiopia, Kenya and Uganda. 100% of our net profit goes back to social projects in those same countries.",
+      "button": "Shop the coffees",
+      "button2": "How the impact works",
+      "image_alt": "Fikir Social Café bags on a table next to a cup of coffee"
+    },
+    "featured": {
+      "eyebrow": "Our origins",
+      "heading": "One origin in every bag",
+      "text": "Coffees from smallholder farmers, medium roasted. Pick yours by its tasting notes."
+    },
+    "subscription": {
+      "eyebrow": "Subscription",
+      "heading": "Your coffee, without having to remember to order it",
+      "text_html": "<p>Two 250 g bags as often as you like. Choose one origin or let us send you a different one each time.</p><p>Shipping included. Pause or cancel whenever you want.</p>",
+      "button": "See the subscription",
+      "image_alt": "Fikir coffee bags on a living-room table"
+    },
+    "steps": {
+      "eyebrow": "How it works",
+      "heading": "From origin to your cup, and back",
+      "step1_title": "You choose your coffee",
+      "step1_text": "Ethiopia, Kenya or Uganda. Whole bean or ground for your brewer.",
+      "step2_title": "We roast it and ship it",
+      "step2_text": "Medium roast in small batches. At your door in 3-5 working days.",
+      "step3_title": "The profit goes back to origin",
+      "step3_text": "We reinvest 100% of our annual net profit in social projects in your coffee's country."
+    },
+    "gift": {
+      "eyebrow": "Gifts",
+      "heading": "A gift that also supports others",
+      "text_html": "<p>The gift edition tin and the three-origin pack. Specialty coffee with a story to tell.</p>",
+      "button": "See gifts",
+      "image_alt": "Fikir gift tin with the line illustration"
+    },
+    "b2b": {
+      "eyebrow": "Business",
+      "heading": "Coffee with impact for your office or business",
+      "text_html": "<p>1 kg bags for offices, cafés and shops, plus corporate gifts. Tell us what you need and we'll prepare a proposal.</p>",
+      "button": "Talk to us",
+      "image_alt": "Coffee bags from Ethiopia, Kenya and Uganda on a shelf"
+    },
+    "quote": {
+      "text": "Fikir means love in Amharic. It was born after living in Ethiopia and Kenya, so that the coffee we drink here helps those who grow it there.",
+      "role": "Founder of Fikir Social Café"
+    }
+  },
+  "impact": {
+    "eyebrow": "Our commitment",
+    "statement": "Fikir Social Café reinvests 100% of its annual net profit in social projects in the countries of origin.",
+    "ethiopia": "When you choose a coffee from Ethiopia, you support social projects in Ethiopia.",
+    "kenya": "When you choose a coffee from Kenya, you support social projects in Kenya.",
+    "uganda": "When you choose a coffee from Uganda, you support social projects in Uganda.",
+    "button": "See the impact"
+  },
+  "impact_page": {
+    "how": {
+      "eyebrow": "How it works",
+      "heading": "The profit goes back to where the coffee grows",
+      "text_html": "<p>Fikir Social Café is a company with a clear purpose: 100% of its annual net profit goes to social projects in Ethiopia, Kenya and Uganda.</p><p>The money goes to the country of the coffee you buy. If you choose Kenya, you support projects in Kenya.</p>",
+      "image_alt": "Women from an East African community in traditional dress"
+    },
+    "steps": {
+      "eyebrow": "Transparency",
+      "heading": "What happens with every purchase",
+      "step1_title": "We pay for the coffee and the costs",
+      "step1_text": "Green coffee, roasting, packaging, shipping and company expenses.",
+      "step2_title": "We calculate the net profit",
+      "step2_text": "At the end of each year, from the company accounts.",
+      "step3_title": "We reinvest it at origin",
+      "step3_text": "100% goes to social projects in the countries our coffees come from. We'll share here which ones we support."
+    },
+    "origin": {
+      "eyebrow": "Smallholder farmers",
+      "heading": "Coffees with a name and a place",
+      "text_html": "<p>We work with lots from smallholder farmers and cooperatives in Sidamo (Ethiopia), Nyeri (Kenya) and Rubirizi and Kasese (Uganda). Each coffee page tells you the region, altitude, variety and process.</p>",
+      "button": "Shop the coffees",
+      "image_alt": "Farmers picking coffee on an East African plantation"
+    }
+  },
+  "about": {
+    "story": {
+      "eyebrow": "Our story",
+      "heading": "Fikir means love",
+      "text_html": "<p>In Amharic, the language of Ethiopia. Fikir didn't start as a business. It started after living in Kenya and Ethiopia and working for two years at an orphanage in Meki.</p><p>A simple idea came back from there: that the coffee we drink every day should help the communities that grow it. That's why the net profit goes back to the countries of origin.</p>",
+      "image_alt": "Pablo Esteve Rozas, founder of Fikir, in Meki (Ethiopia)"
+    },
+    "roast": {
+      "eyebrow": "The coffee",
+      "heading": "Specialty, medium roast and small batches",
+      "text_html": "<p>We select specialty coffees from smallholder farmers and give them a medium roast, so the origin comes through. Every bag shows its roast date and batch.</p>",
+      "image_alt": "Coffee beans roasting in a drum with steam"
+    },
+    "values": {
+      "eyebrow": "What guides us",
+      "heading": "Three principles",
+      "step1_title": "People first",
+      "step1_text": "We tell you where each coffee comes from and who grows it before we talk about tasting notes.",
+      "step2_title": "Facts, not promises",
+      "step2_text": "We say what we do with the profit and in which countries. No superlatives.",
+      "step3_title": "Quality in the cup",
+      "step3_text": "Impact doesn't excuse bad coffee. We choose each lot for how it tastes."
+    }
+  },
+  "b2b": {
+    "offer": {
+      "eyebrow": "For business",
+      "heading": "Specialty coffee that also says something",
+      "text_html": "<ul><li>Offices: 1 kg bags, whole bean or ground.</li><li>Cafés and shops: coffee to serve or resell.</li><li>Corporate gifts: tins and packs for clients and teams.</li></ul><p>With every order, your company supports social projects in Ethiopia, Kenya and Uganda.</p>",
+      "image_alt": "Fikir bags with whole beans and ground coffee"
+    },
+    "steps": {
+      "eyebrow": "How we work",
+      "heading": "Three steps",
+      "step1_title": "Tell us what you need",
+      "step1_text": "Approximate volume, frequency and grind.",
+      "step2_title": "We send you a proposal",
+      "step2_text": "Price per kilo, lead times and, if you like, a sample to try.",
+      "step3_title": "You receive your coffee",
+      "step3_text": "Regular deliveries in mainland Spain, invoiced to your company."
+    },
+    "impact": {
+      "eyebrow": "Impact",
+      "heading": "A supplier that adds to your social responsibility",
+      "text_html": "<p>100% of Fikir Social Café's annual net profit is reinvested in social projects in the countries of origin. It's something you can share with your team and your clients.</p>",
+      "image_alt": "Coffee harvest on an East African plantation"
+    }
+  },
+  "pages": {
+    "contact": {
+      "eyebrow": "Contact",
+      "heading": "Let's talk",
+      "text": "Write to us through the form, by email or on WhatsApp. We'll get back to you as soon as we can."
+    },
+    "impact": {
+      "eyebrow": "Impact",
+      "heading": "The coffee you drink goes back to its origin",
+      "text": "100% of our annual net profit is reinvested in social projects in Ethiopia, Kenya and Uganda."
+    },
+    "about": {
+      "eyebrow": "About us",
+      "heading": "What connects us shouldn't be unfair",
+      "text": "We are a specialty coffee roaster with one purpose: that the profit goes back to the countries where it is grown."
+    },
+    "b2b": {
+      "eyebrow": "Business",
+      "heading": "Coffee with impact for your company",
+      "text": "Offices, cafés, shops and corporate gifts. We'll prepare a tailored proposal."
+    },
+    "faq": {
+      "eyebrow": "Help",
+      "heading": "Frequently asked questions",
+      "text": "Grind, shipping, subscription and impact. If you can't find your answer, write to us."
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "home": {
+      "heading": "What people ask us most",
+      "q1": "Whole bean or ground?",
+      "a1": "Whole beans keep their aroma best; if you have a grinder, that's the way to go. If not, choose your brewer's grind and we'll grind it before shipping.",
+      "q2": "Which grind should I choose?",
+      "a2": "Espresso for espresso or bean-to-cup machines. Moka pot for stovetop. Filter / V60 for drip, Chemex or V60. French press / Cold brew for plunger and cold brew.",
+      "q3": "How long does shipping take and how much is it?",
+      "a3": "We ship with SEUR to mainland Spain in 3-5 working days. It costs €5.90 and it's free from €50. For now we don't ship to the Balearic or Canary Islands, Ceuta or Melilla.",
+      "q4": "How should I store the coffee?",
+      "a4": "In its bag, tightly closed, away from light and heat. Never in the fridge. Ideally, drink it within 6 weeks of roasting.",
+      "q5": "How does the 5% discount work?",
+      "a5": "When you buy two or more bags, in any combination of origins and sizes, a 5% discount is applied automatically in the cart.",
+      "q6": "Where does the profit go?",
+      "a6": "Fikir Social Café reinvests 100% of its annual net profit in social projects in Ethiopia, Kenya and Uganda, in each coffee's country."
+    },
+    "full": {
+      "heading": "Everything you need to know",
+      "q1": "Whole bean or ground?",
+      "a1": "Whole beans keep their aroma best; if you have a grinder, that's the way to go. If not, choose your brewer's grind and we'll grind it before shipping.",
+      "q2": "Which grind should I choose?",
+      "a2": "Espresso for espresso or bean-to-cup machines. Moka pot for stovetop. Filter / V60 for drip, Chemex or V60. French press / Cold brew for plunger and cold brew.",
+      "q3": "How long does shipping take and how much is it?",
+      "a3": "We ship with SEUR to mainland Spain in 3-5 working days. It costs €5.90 and it's free from €50.",
+      "q4": "Do you ship to the islands or outside Spain?",
+      "a4": "For now we only ship to mainland Spain. If you're elsewhere, write to us and we'll let you know when we expand.",
+      "q5": "How should I store the coffee?",
+      "a5": "In its bag, tightly closed, away from light and heat. Never in the fridge. Ideally, drink it within 6 weeks of roasting.",
+      "q6": "How long does a bag last?",
+      "a6": "250 g makes about 15-17 espressos or 12-14 filter cups. A 1 kg bag makes about 60 cups.",
+      "q7": "How does the subscription work?",
+      "a7": "You get two 250 g bags as often as you choose, shipping included. Pick one origin or get a different one each time, and pause or cancel from your account.",
+      "q8": "How does the 5% discount work?",
+      "a8": "When you buy two or more bags, in any combination, a 5% discount is applied automatically in the cart.",
+      "q9": "Can I return an order?",
+      "a9": "As it's a food product, we can't accept returns of opened coffee. If your order arrives damaged or wrong, write to us within 14 days and we'll sort it out.",
+      "q10": "Where does the profit go?",
+      "a10": "Fikir Social Café reinvests 100% of its annual net profit in social projects in Ethiopia, Kenya and Uganda, in each coffee's country."
+    },
+    "impact": {
+      "heading": "Questions about our impact",
+      "q1": "What does net profit mean?",
+      "a1": "What's left after paying for the coffee, roasting, packaging, shipping, taxes and company expenses.",
+      "q2": "Which country does my purchase support?",
+      "a2": "The origin country of the coffee you choose. Packs, the rotating subscription and 1 kg bags are shared among the countries of origin.",
+      "q3": "How do I know it happens?",
+      "a3": "We'll publish on this page the projects we support each year and the amount allocated.",
+      "q4": "Can I suggest a project?",
+      "a4": "Yes. Write to us from the contact page and we'll consider it."
+    }
+  },
+  "footer": {
+    "about": "Specialty coffee roaster. We reinvest 100% of our annual net profit in social projects in Ethiopia, Kenya and Uganda.",
+    "shop": "Shop",
+    "info": "Information",
+    "contact": "Contact",
+    "legal_line": "Majadahonda (Madrid)",
+    "payments": "Payment methods"
+  },
+  "product": {
+    "badge_subscription": "Subscription",
+    "badge_sale": "Sale",
+    "from": "From",
+    "medium_roast": "Medium roast",
+    "tax_included": "VAT included",
+    "shipping_included": "shipping included",
+    "grind_help_json": "{\"Grano\":\"Whole beans keep their aroma best. Ideal if you have a grinder.\",\"Espresso\":\"Fine grind for espresso or bean-to-cup machines.\",\"Italiana\":\"Medium-fine grind for a moka pot.\",\"Filtro / V60\":\"Medium grind for drip, V60 or Chemex.\",\"Prensa francesa / Cold brew\":\"Coarse grind for French press or cold brew.\",\"Whole bean\":\"Whole beans keep their aroma best. Ideal if you have a grinder.\",\"Moka pot\":\"Medium-fine grind for a moka pot.\",\"Filter / V60\":\"Medium grind for drip, V60 or Chemex.\",\"French press / Cold brew\":\"Coarse grind for French press or cold brew.\"}",
+    "one_time": "One-time purchase",
+    "subscribe": "Subscription with shipping included",
+    "subscribe_help": "Choose how often. Pause or cancel whenever you want.",
+    "frequency": "Frequency",
+    "subscription_pending": "Subscriptions will be available very soon. In the meantime you can make a one-time purchase.",
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "perk_shipping": "Shipped with SEUR in 3-5 days. Free on mainland Spain from €{{ amount }}.",
+    "perk_bulk": "5% off when you buy 2 bags or more, in any combination.",
+    "perk_impact_country": "When you choose this coffee, you support social projects in {{ country }}.",
+    "perk_impact": "100% of net profit is reinvested in social projects at origin.",
+    "sheet": "Coffee details",
+    "spec_country": "Country",
+    "spec_region": "Region",
+    "spec_producer": "Producer",
+    "spec_altitude": "Altitude",
+    "spec_variety": "Variety",
+    "spec_process": "Process",
+    "spec_harvest": "Harvest",
+    "spec_score": "SCA score",
+    "spec_profile": "Profile",
+    "grind_guide": "Grind guide",
+    "grind_table_html": "<table class=\"grind-table\"><tr><td>Whole bean</td><td>To grind at home just before brewing.</td></tr><tr><td>Espresso</td><td>Espresso or bean-to-cup machine.</td></tr><tr><td>Moka pot</td><td>Stovetop moka pot.</td></tr><tr><td>Filter / V60</td><td>Drip, V60, Chemex or Aeropress.</td></tr><tr><td>French press / Cold brew</td><td>Plunger and cold brew.</td></tr></table>",
+    "storage": "Storage",
+    "storage_text": "Keep the coffee in its bag, tightly closed, away from light and heat, and never in the fridge. Ideally, drink it within 6 weeks of roasting.",
+    "shipping": "Shipping and returns",
+    "shipping_text": "We ship with SEUR to mainland Spain in 3-5 working days. Shipping costs €5.90 and is free from €{{ amount }}. As it's a food product, we only accept returns if the order arrives damaged or wrong.",
+    "related": "You may also like",
+    "view_image": "View image {{ number }}",
+    "sticky_add": "Add to cart",
+    "grind_label": "Grind",
+    "grind_grano": "Whole bean",
+    "grind_espresso": "Espresso",
+    "grind_italiana": "Moka pot",
+    "grind_filtro": "Filter / V60",
+    "grind_prensa": "French press / Cold brew"
+  },
+  "collection": {
+    "eyebrow": "Shop",
+    "nav": "Categories",
+    "all": "All",
+    "empty": "Products coming soon.",
+    "list_title": "Categories",
+    "all_heading": "All coffee"
+  },
+  "cart": {
+    "title": "Your cart",
+    "added": "Added to cart",
+    "error": "Couldn't add it. Please try again.",
+    "shipping_remaining_html": "You're <strong>{{ amount }}</strong> away from free shipping.",
+    "shipping_free": "Your order ships free.",
+    "decrease": "Remove one",
+    "increase": "Add one",
+    "quantity": "Quantity",
+    "remove": "Remove",
+    "savings": "You save",
+    "subtotal": "Subtotal",
+    "taxes_shipping": "VAT included. Shipping is calculated at checkout.",
+    "checkout": "Check out",
+    "view_cart": "View cart",
+    "bulk_hint": "Buy 2 bags or more and get 5% off automatically.",
+    "empty": "Your cart is empty.",
+    "continue": "Shop the coffees",
+    "update": "Update"
+  },
+  "contact": {
+    "eyebrow": "Write to us",
+    "heading": "How can we help?",
+    "text": "Orders, subscriptions, grind or any question. We'll get back to you as soon as we can.",
+    "b2b_eyebrow": "Business enquiry",
+    "b2b_heading": "Tell us what you need",
+    "b2b_text": "We'll reply with a proposal including prices and lead times.",
+    "success": "Thank you. We've received your message and will reply soon.",
+    "name": "Name",
+    "email": "Email",
+    "company": "Company",
+    "business_type": "Type of business",
+    "type_office": "Office",
+    "type_horeca": "Café or restaurant",
+    "type_gift": "Corporate gifts",
+    "type_other": "Other",
+    "volume": "Approximate consumption (kg per month)",
+    "phone": "Phone (optional)",
+    "message": "Message",
+    "privacy_html": "By sending this form you accept our <a href=\"/policies/privacy-policy\">privacy policy</a>.",
+    "send": "Send"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search for a coffee",
+    "no_results": "No results for “{{ terms }}”."
+  },
+  "password": {
+    "heading": "We're getting the shop ready",
+    "text": "Very soon you'll be able to buy our coffees from Ethiopia, Kenya and Uganda here.",
+    "label": "Password",
+    "enter": "Enter"
+  },
+  "gift_card": {
+    "title": "Your gift card",
+    "code": "Code"
+  }
+}

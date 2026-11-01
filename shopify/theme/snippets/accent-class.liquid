@@ -1,0 +1,2 @@
+{%- comment -%} Devuelve la clase de acento según el origen del producto. {%- endcomment -%}
+{%- if product.tags contains 'etiopia' -%}accent-etiopia{%- elsif product.tags contains 'kenia' -%}accent-kenia{%- elsif product.tags contains 'uganda' -%}accent-uganda{%- endif -%}

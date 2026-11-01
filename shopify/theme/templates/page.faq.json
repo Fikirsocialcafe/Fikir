@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "header": { "type": "page-header", "settings": { "key": "pages.faq" } },
+    "faq": { "type": "faq", "settings": { "key": "faq.full", "count": 10 } }
+  },
+  "order": ["header", "faq"]
+}

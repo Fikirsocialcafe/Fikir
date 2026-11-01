@@ -1,0 +1,21 @@
+<div class="drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}">
+  <div class="drawer__overlay" data-drawer-close></div>
+  <div class="drawer__panel" id="cart-drawer-inner">
+    <div class="drawer__header">
+      <h2>{{ 'cart.title' | t }}</h2>
+      <button class="icon-button" type="button" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+    {%- if cart.item_count > 0 -%}
+      <div class="drawer__body">
+        <div style="padding-top:16px">{% render 'shipping-bar' %}</div>
+        {% render 'cart-lines', form_mode: 'drawer' %}
+      </div>
+      <div class="drawer__footer">{% render 'cart-summary', form_mode: 'drawer' %}</div>
+    {%- else -%}
+      <div class="drawer__body drawer__empty">
+        <p>{{ 'cart.empty' | t }}</p>
+        <a class="button" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

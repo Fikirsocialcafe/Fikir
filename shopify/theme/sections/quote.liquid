@@ -1,0 +1,17 @@
+<section class="section section--white">
+  <div class="page-width center">
+    <img src="{{ 'ilustracion-fikir.png' | asset_url }}" alt="" width="46" height="82" style="margin:0 auto 22px;height:82px;width:auto" loading="lazy">
+    <blockquote class="quote" style="margin:0 auto">{% render 'text', value: section.settings.quote, key: 'home.quote.text' %}</blockquote>
+    <div class="founder">
+      <img src="{{ 'fundador-pablo.jpg' | asset_url }}" alt="" width="56" height="56" loading="lazy">
+      <div style="text-align:left"><strong>Pablo Esteve Rozas</strong><br><span class="small muted">{{ 'home.quote.role' | t }}</span></div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Cita del fundador",
+  "settings": [{ "type": "textarea", "id": "quote", "label": "Cita" }],
+  "presets": [{ "name": "Cita del fundador" }]
+}
+{% endschema %}

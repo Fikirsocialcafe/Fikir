@@ -1,0 +1,213 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign accent = ''
+  capture accent
+    render 'accent-class', product: product
+  endcapture
+  assign has_plans = false
+  if product.selling_plan_groups.size > 0
+    assign has_plans = true
+  endif
+  assign is_subscription = false
+  if product.tags contains 'suscripcion'
+    assign is_subscription = true
+  endif
+  assign has_grind_option = false
+  for option in product.options
+    if option == 'Molienda' or option == 'Grind'
+      assign has_grind_option = true
+    endif
+  endfor
+-%}
+<section class="page-width {{ accent | strip }}" data-product>
+  <div class="product">
+    <div class="product__gallery">
+      <div class="product__main-image">
+        {%- assign main = current_variant.featured_media | default: product.featured_media -%}
+        {%- if main -%}
+          {{ main | image_url: width: 1400 | image_tag: data-main-image: '', loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 860px) 55vw, 100vw', widths: '600, 900, 1200, 1400', alt: main.alt | default: product.title }}
+        {%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="product__thumbs">
+          {%- for media in product.media -%}
+            <button type="button" data-thumb="{{ media | image_url: width: 1400 }}" data-srcset="" aria-current="{% if media.id == main.id %}true{% else %}false{% endif %}" aria-label="{{ 'product.view_image' | t: number: forloop.index }}">
+              {{ media | image_url: width: 160 | image_tag: loading: 'lazy', alt: media.alt | default: product.title }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="product__info">
+      <span class="eyebrow">
+        {%- if product.metafields.custom.pais != blank -%}{{ product.metafields.custom.pais }} · {{ product.metafields.custom.region }}{%- else -%}{{ product.type }}{%- endif -%}
+      </span>
+      <h1 class="product__title h2">{{ product.title }}</h1>
+      {%- if product.metafields.custom.notas != blank -%}
+        <p class="product__notes notes">{{ product.metafields.custom.notas }}</p>
+      {%- endif -%}
+      {%- if product.metafields.custom.perfil != blank -%}
+        <ul class="badge-list">
+          <li>{{ product.metafields.custom.proceso }}</li>
+          <li>SCA {{ product.metafields.custom.sca }}</li>
+          <li>{{ 'product.medium_roast' | t }}</li>
+        </ul>
+      {%- endif -%}
+
+      <div class="product__price"><span data-price>{{ current_variant.price | money }}</span>
+        {%- if current_variant.compare_at_price > current_variant.price -%}<s>{{ current_variant.compare_at_price | money }}</s>{%- endif -%}
+      </div>
+      <p class="product__tax">{{ 'product.tax_included' | t }}{% if is_subscription %} · {{ 'product.shipping_included' | t }}{% endif %}</p>
+
+      {%- form 'product', product, data-product-form: '', novalidate: 'novalidate' -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <fieldset class="option" data-option>
+              <legend>{{ option.name }}</legend>
+              <div class="pills">
+                {%- for value in option.values -%}
+                  <label class="pill">
+                    <input type="radio" name="option-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}>
+                    <span>{{ value }}</span>
+                  </label>
+                {%- endfor -%}
+              </div>
+              {%- if option.name == 'Molienda' or option.name == 'Grind' -%}
+                <p class="option__help" data-grind-help='{{ 'product.grind_help_json' | t }}'></p>
+              {%- endif -%}
+            </fieldset>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        {%- unless has_grind_option or product.tags contains 'sin-molienda' -%}
+          <fieldset class="option" data-grind-property>
+            <legend>{{ 'product.grind_label' | t }}</legend>
+            <div class="pills">
+              {%- assign grind_keys = 'grano,espresso,italiana,filtro,prensa' | split: ',' -%}
+              {%- assign grind_values = 'Grano|Espresso|Italiana|Filtro / V60|Prensa francesa / Cold brew' | split: '|' -%}
+              {%- for key in grind_keys -%}
+                {%- assign grind_key = 'product.grind_' | append: key -%}
+                <label class="pill">
+                  <input type="radio" name="properties[Molienda]" value="{{ grind_values[forloop.index0] }}" {% if forloop.first %}checked{% endif %}>
+                  <span>{{ grind_key | t }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+            <p class="option__help" data-grind-help='{{ 'product.grind_help_json' | t }}'></p>
+          </fieldset>
+        {%- endunless -%}
+
+        {%- if has_plans -%}
+          <div class="purchase-type">
+            {%- unless product.requires_selling_plan -%}
+              <label><input type="radio" name="purchase_type" value="once"><span><strong>{{ 'product.one_time' | t }}</strong></span></label>
+            {%- endunless -%}
+            <label>
+              <input type="radio" name="purchase_type" value="subscription" checked>
+              <span style="flex:1"><strong>{{ 'product.subscribe' | t }}</strong><br><span class="small muted">{{ 'product.subscribe_help' | t }}</span>
+                <select name="selling_plan" aria-label="{{ 'product.frequency' | t }}">
+                  {%- for group in product.selling_plan_groups -%}
+                    {%- for plan in group.selling_plans -%}
+                      <option value="{{ plan.id }}" {% if forloop.first %}selected{% endif %}>{{ plan.name }}</option>
+                    {%- endfor -%}
+                  {%- endfor -%}
+                </select>
+              </span>
+            </label>
+          </div>
+        {%- elsif is_subscription -%}
+          <p class="notice small">{{ 'product.subscription_pending' | t }}</p>
+        {%- endif -%}
+
+        <div class="buy-row">
+          <div class="qty">
+            <button type="button" data-qty="minus" aria-label="{{ 'cart.decrease' | t }}">−</button>
+            <input type="number" name="quantity" value="1" min="1" aria-label="{{ 'cart.quantity' | t }}">
+            <button type="button" data-qty="plus" aria-label="{{ 'cart.increase' | t }}">+</button>
+          </div>
+          <button type="submit" class="button" {% unless current_variant.available %}disabled{% endunless %}>
+            {%- if current_variant.available -%}{{ 'product.add_to_cart' | t }}{%- else -%}{{ 'product.sold_out' | t }}{%- endif -%}
+          </button>
+        </div>
+        <p class="small" data-form-status role="status" aria-live="polite"></p>
+      {%- endform -%}
+
+      <ul class="perks">
+        <li>{% render 'icon', name: 'truck' %}<span>{{ 'product.perk_shipping' | t: amount: settings.free_shipping_threshold }}</span></li>
+        {%- if product.tags contains 'bolsa' -%}<li>{% render 'icon', name: 'tag' %}<span>{{ 'product.perk_bulk' | t }}</span></li>{%- endif -%}
+        <li>{% render 'icon', name: 'heart' %}<span>
+          {%- if product.metafields.custom.pais != blank -%}{{ 'product.perk_impact_country' | t: country: product.metafields.custom.pais }}{%- else -%}{{ 'product.perk_impact' | t }}{%- endif -%}
+        </span></li>
+      </ul>
+
+      <div class="rte muted">{{ product.description }}</div>
+
+      <div class="accordion" style="margin-top:28px">
+        {%- if product.metafields.custom.pais != blank -%}
+          <details open>
+            <summary>{{ 'product.sheet' | t }}</summary>
+            <div class="accordion__content">
+              <dl class="spec">
+                <dt>{{ 'product.spec_country' | t }}</dt><dd>{{ product.metafields.custom.pais }}</dd>
+                <dt>{{ 'product.spec_region' | t }}</dt><dd>{{ product.metafields.custom.region }}</dd>
+                <dt>{{ 'product.spec_producer' | t }}</dt><dd>{{ product.metafields.custom.productor }}</dd>
+                <dt>{{ 'product.spec_altitude' | t }}</dt><dd>{{ product.metafields.custom.altitud }}</dd>
+                <dt>{{ 'product.spec_variety' | t }}</dt><dd>{{ product.metafields.custom.variedad }}</dd>
+                <dt>{{ 'product.spec_process' | t }}</dt><dd>{{ product.metafields.custom.proceso }}</dd>
+                <dt>{{ 'product.spec_harvest' | t }}</dt><dd>{{ product.metafields.custom.cosecha }}</dd>
+                <dt>{{ 'product.spec_score' | t }}</dt><dd>{{ product.metafields.custom.sca }}</dd>
+                <dt>{{ 'product.spec_profile' | t }}</dt><dd>{{ product.metafields.custom.perfil }}</dd>
+              </dl>
+            </div>
+          </details>
+        {%- endif -%}
+        <details>
+          <summary>{{ 'product.grind_guide' | t }}</summary>
+          <div class="accordion__content">{{ 'product.grind_table_html' | t }}</div>
+        </details>
+        <details>
+          <summary>{{ 'product.storage' | t }}</summary>
+          <div class="accordion__content">{{ 'product.storage_text' | t }}</div>
+        </details>
+        <details>
+          <summary>{{ 'product.shipping' | t }}</summary>
+          <div class="accordion__content">{{ 'product.shipping_text' | t: amount: settings.free_shipping_threshold }}</div>
+        </details>
+      </div>
+    </div>
+  </div>
+  <div class="sticky-buy" data-sticky-buy aria-hidden="true">
+    <div class="sticky-buy__info">
+      <span class="sticky-buy__title">{{ product.title }}</span>
+      <span class="sticky-buy__price" data-sticky-price>{{ current_variant.price | money }}</span>
+    </div>
+    <button type="button" class="button" data-sticky-add tabindex="-1">{{ 'product.sticky_add' | t }}</button>
+  </div>
+  <script type="application/json" data-variants>
+    [{%- for v in product.variants -%}{"id": {{ v.id }}, "available": {{ v.available }}, "price": {{ v.price | money | json }}, "options": {{ v.options | json }}, "plans": { {%- for a in v.selling_plan_allocations -%}"{{ a.selling_plan.id }}": {{ a.price | money | json }}{% unless forloop.last %},{% endunless %}{%- endfor -%} }}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "image": {{ product.featured_media | image_url: width: 1200 | prepend: 'https:' | json }},
+      "description": {{ product.description | strip_html | json }},
+      "brand": { "@type": "Brand", "name": "Fikir Social Café" },
+      "sku": {{ current_variant.sku | json }},
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "lowPrice": {{ product.price_min | divided_by: 100.0 | json }},
+        "highPrice": {{ product.price_max | divided_by: 100.0 | json }},
+        "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"
+      }
+    }
+  </script>
+</section>
+{% schema %}
+{ "name": "Producto", "settings": [] }
+{% endschema %}

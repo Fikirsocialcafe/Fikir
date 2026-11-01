@@ -1,0 +1,11 @@
+<article class="section">
+  <div class="page-width page-width--narrow">
+    <span class="eyebrow">{{ article.published_at | date: format: 'date' }}</span>
+    <h1 class="h2">{{ article.title }}</h1>
+    {%- if article.image -%}<div style="margin:24px 0">{{ article.image | image_url: width: 1400 | image_tag: loading: 'eager' }}</div>{%- endif -%}
+    <div class="rte">{{ article.content }}</div>
+  </div>
+</article>
+{% schema %}
+{ "name": "Artículo", "settings": [] }
+{% endschema %}
