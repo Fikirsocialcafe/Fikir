@@ -5,6 +5,15 @@
   if pct > 100
     assign pct = 100
   endif
+  comment
+    Las suscripciones llevan el envío incluido (descuento automático de envío gratis)
+  endcomment
+  for item in cart.items
+    if item.selling_plan_allocation
+      assign remaining = 0
+      assign pct = 100
+    endif
+  endfor
 -%}
 <div class="shipping-bar">
   {%- if remaining > 0 -%}
