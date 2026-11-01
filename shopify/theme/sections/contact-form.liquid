@@ -7,7 +7,7 @@
       <h2>{% if b2b %}{{ 'contact.b2b_heading' | t }}{% else %}{{ 'contact.heading' | t }}{% endif %}</h2>
       <p class="muted">{% if b2b %}{{ 'contact.b2b_text' | t }}{% else %}{{ 'contact.text' | t }}{% endif %}</p>
       <ul class="perks">
-        <li>{% render 'icon', name: 'heart' %}<span><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></span></li>
+        <li>{% render 'icon', name: 'mail' %}<span><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></span></li>
         {%- if settings.whatsapp != blank -%}<li>{% render 'icon', name: 'whatsapp' %}<span><a href="https://wa.me/{{ settings.whatsapp }}" target="_blank" rel="noopener">WhatsApp +{{ settings.whatsapp | slice: 0, 2 }} {{ settings.whatsapp | slice: 2, 9 }}</a></span></li>{%- endif -%}
       </ul>
     </div>
