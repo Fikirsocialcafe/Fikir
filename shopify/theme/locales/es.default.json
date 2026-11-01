@@ -11,7 +11,8 @@
     "404_text": "Puede que el enlace haya cambiado. Vuelve a la tienda y encuentra tu café."
   },
   "announcement": {
-    "default": "Envío gratis en península desde 50 € · Entrega en 3-5 días laborables"
+    "default": "Envío gratis en península desde 50 €",
+    "extra": "Entrega en 3-5 días laborables"
   },
   "trust": {
     "specialty": "Café de especialidad de pequeños productores",
@@ -278,14 +279,16 @@
     "shipping": "Envíos y devoluciones",
     "shipping_text": "Enviamos con SEUR a la península en 3-5 días laborables. El envío cuesta 5,90 € y es gratis a partir de {{ amount }} €. Al ser un alimento, solo aceptamos devoluciones si el pedido llega dañado o con un error.",
     "related": "También te puede gustar",
-    "view_image": "Ver imagen {{ number }}"
+    "view_image": "Ver imagen {{ number }}",
+    "sticky_add": "Añadir"
   },
   "collection": {
     "eyebrow": "Tienda",
     "nav": "Categorías",
     "all": "Todo",
     "empty": "Pronto tendremos productos aquí.",
-    "list_title": "Categorías"
+    "list_title": "Categorías",
+    "all_heading": "Todo el café"
   },
   "cart": {
     "title": "Tu carrito",

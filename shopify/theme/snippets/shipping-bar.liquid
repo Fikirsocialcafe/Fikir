@@ -8,7 +8,8 @@
 -%}
 <div class="shipping-bar">
   {%- if remaining > 0 -%}
-    {{ 'cart.shipping_remaining_html' | t: amount: remaining | money }}
+    {%- assign remaining_money = remaining | money -%}
+    {{ 'cart.shipping_remaining_html' | t: amount: remaining_money }}
   {%- else -%}
     {{ 'cart.shipping_free' | t }}
   {%- endif -%}

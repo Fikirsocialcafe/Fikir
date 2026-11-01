@@ -1,7 +1,7 @@
 <section class="collection-hero section--deep">
   <div class="page-width">
     <span class="eyebrow">{{ 'collection.eyebrow' | t }}</span>
-    <h1>{{ collection.title }}</h1>
+    <h1>{% if collection.handle == 'all' %}{{ 'collection.all_heading' | t }}{% else %}{{ collection.title }}{% endif %}</h1>
     {%- if collection.description != blank -%}<div class="lead">{{ collection.description }}</div>{%- endif -%}
   </div>
 </section>
@@ -18,7 +18,28 @@
     {%- paginate collection.products by 24 -%}
       {%- if collection.products.size > 0 -%}
         <div class="grid grid--4">
-          {%- for product in collection.products -%}{% render 'product-card', product: product %}{%- endfor -%}
+          {%- if collection.handle == 'all' -%}
+            {%- comment -%}Orden de la tienda: orígenes, regalos, suscripción y el resto{%- endcomment -%}
+            {%- assign shown_ids = '' -%}
+            {%- assign tag_order = 'origen,regalo,suscripcion' | split: ',' -%}
+            {%- for tag in tag_order -%}
+              {%- for product in collection.products -%}
+                {%- assign pid = product.id | append: ',' -%}
+                {%- if product.tags contains tag -%}
+                  {%- unless shown_ids contains pid -%}
+                    {% render 'product-card', product: product %}
+                    {%- assign shown_ids = shown_ids | append: pid -%}
+                  {%- endunless -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endfor -%}
+            {%- for product in collection.products -%}
+              {%- assign pid = product.id | append: ',' -%}
+              {%- unless shown_ids contains pid -%}{% render 'product-card', product: product %}{%- endunless -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for product in collection.products -%}{% render 'product-card', product: product %}{%- endfor -%}
+          {%- endif -%}
         </div>
       {%- else -%}
         <p class="empty-state muted">{{ 'collection.empty' | t }}</p>

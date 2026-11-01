@@ -2,7 +2,7 @@
   "sections": {
     "hero": { "type": "hero", "settings": { "asset": "home-hero.jpg" } },
     "trust": { "type": "trust-bar", "settings": {} },
-    "origins": { "type": "featured-collection", "settings": { "eyebrow_key": "home.featured.eyebrow", "heading_key": "home.featured.heading", "text_key": "home.featured.text", "collection": "cafes-de-origen", "limit": 4, "columns": "4", "background": "cream" } },
+    "origins": { "type": "featured-collection", "settings": { "eyebrow_key": "home.featured.eyebrow", "heading_key": "home.featured.heading", "text_key": "home.featured.text", "collection": "cafes-de-origen", "limit": 4, "columns": "3", "background": "cream" } },
     "impact": { "type": "impact", "settings": { "style": "ink", "show_button": true } },
     "subscription": { "type": "image-with-text", "settings": { "key": "home.subscription", "asset": "prod-suscripcion.jpg", "link": "/collections/suscripcion", "background": "deep" } },
     "steps": { "type": "steps", "settings": { "key": "home.steps", "background": "cream" } },

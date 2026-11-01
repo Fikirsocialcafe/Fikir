@@ -1,6 +1,6 @@
 <div class="announcement">
   {%- if section.settings.link != blank -%}<a href="{{ section.settings.link }}">{%- endif -%}
-  {%- if section.settings.text != blank -%}{{ section.settings.text }}{%- else -%}{{ 'announcement.default' | t }}{%- endif -%}
+  {%- if section.settings.text != blank -%}{{ section.settings.text }}{%- else -%}{{ 'announcement.default' | t }}<span class="announcement__extra"> · {{ 'announcement.extra' | t }}</span>{%- endif -%}
   {%- if section.settings.link != blank -%}</a>{%- endif -%}
 </div>
 {% schema %}

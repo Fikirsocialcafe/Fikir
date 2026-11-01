@@ -159,5 +159,22 @@
       });
     });
     update();
+
+    /* Barra fija de compra en móvil: aparece cuando el botón principal sale de la pantalla */
+    const sticky = $('[data-sticky-buy]', root);
+    if (sticky && 'IntersectionObserver' in window) {
+      const stickyPrice = $('[data-sticky-price]', sticky);
+      new IntersectionObserver(([entry]) => {
+        const show = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        sticky.classList.toggle('is-visible', show);
+        document.body.classList.toggle('has-sticky-buy', show);
+        sticky.setAttribute('aria-hidden', String(!show));
+        if (stickyPrice) stickyPrice.textContent = priceEl.textContent;
+      }).observe(button);
+      $('[data-sticky-add]', sticky).addEventListener('click', () => {
+        if (button.disabled) { button.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+        form.requestSubmit ? form.requestSubmit(button) : button.click();
+      });
+    }
   });
 })();

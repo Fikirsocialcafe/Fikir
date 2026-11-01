@@ -16,7 +16,7 @@
       </div>
       {%- if collection != blank -%}<a class="link-arrow" href="{{ collection.url }}">{{ 'general.view_all' | t }}</a>{%- endif -%}
     </div>
-    <div class="grid grid--{{ section.settings.columns }}">
+    <div class="grid grid--{{ section.settings.columns }} grid--scroll-mobile">
       {%- if collection != blank and collection.products_count > 0 -%}
         {%- for product in collection.products limit: limit -%}
           {% render 'product-card', product: product %}

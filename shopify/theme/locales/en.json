@@ -11,7 +11,8 @@
     "404_text": "The link may have changed. Head back to the shop and find your coffee."
   },
   "announcement": {
-    "default": "Free shipping on mainland Spain from €50 · Delivered in 3-5 working days"
+    "default": "Free shipping on mainland Spain from €50",
+    "extra": "Delivered in 3-5 working days"
   },
   "trust": {
     "specialty": "Specialty coffee from smallholder farmers",
@@ -278,14 +279,16 @@
     "shipping": "Shipping and returns",
     "shipping_text": "We ship with SEUR to mainland Spain in 3-5 working days. Shipping costs €5.90 and is free from €{{ amount }}. As it's a food product, we only accept returns if the order arrives damaged or wrong.",
     "related": "You may also like",
-    "view_image": "View image {{ number }}"
+    "view_image": "View image {{ number }}",
+    "sticky_add": "Add to cart"
   },
   "collection": {
     "eyebrow": "Shop",
     "nav": "Categories",
     "all": "All",
     "empty": "Products coming soon.",
-    "list_title": "Categories"
+    "list_title": "Categories",
+    "all_heading": "All coffee"
   },
   "cart": {
     "title": "Your cart",
