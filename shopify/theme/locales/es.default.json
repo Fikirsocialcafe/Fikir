@@ -280,7 +280,13 @@
     "shipping_text": "Enviamos con SEUR a la península en 3-5 días laborables. El envío cuesta 5,90 € y es gratis a partir de {{ amount }} €. Al ser un alimento, solo aceptamos devoluciones si el pedido llega dañado o con un error.",
     "related": "También te puede gustar",
     "view_image": "Ver imagen {{ number }}",
-    "sticky_add": "Añadir"
+    "sticky_add": "Añadir",
+    "grind_label": "Molienda",
+    "grind_grano": "Grano",
+    "grind_espresso": "Espresso",
+    "grind_italiana": "Italiana",
+    "grind_filtro": "Filtro / V60",
+    "grind_prensa": "Prensa francesa / Cold brew"
   },
   "collection": {
     "eyebrow": "Tienda",

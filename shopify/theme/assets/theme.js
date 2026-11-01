@@ -122,9 +122,11 @@
     const selected = () => $$('fieldset[data-option] input:checked', root).map((i) => i.value);
     const update = () => {
       const values = selected();
-      const variant = variants.find((v) => v.options.every((o, i) => o === values[i]));
+      const variant = values.length
+        ? variants.find((v) => v.options.every((o, i) => o === values[i]))
+        : variants[0];
       if (help) {
-        const grind = values.find((v) => grindHelp[v]);
+        const grind = $$('fieldset input:checked', root).map((i) => i.value).find((v) => grindHelp[v]);
         help.textContent = grind ? grindHelp[grind] : '';
       }
       if (!variant) { button.disabled = true; return; }
@@ -140,7 +142,7 @@
         window.history.replaceState({}, '', url);
       } catch (e) { /* vistas previas sin URL propia */ }
     };
-    $$('fieldset[data-option] input', root).forEach((i) => i.addEventListener('change', update));
+    $$('fieldset[data-option] input, fieldset[data-grind-property] input', root).forEach((i) => i.addEventListener('change', update));
 
     $$('input[name="purchase_type"]', root).forEach((radio) => {
       radio.addEventListener('change', () => {

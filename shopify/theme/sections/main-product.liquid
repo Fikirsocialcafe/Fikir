@@ -12,6 +12,12 @@
   if product.tags contains 'suscripcion'
     assign is_subscription = true
   endif
+  assign has_grind_option = false
+  for option in product.options
+    if option == 'Molienda' or option == 'Grind'
+      assign has_grind_option = true
+    endif
+  endfor
 -%}
 <section class="page-width {{ accent | strip }}" data-product>
   <div class="product">
@@ -74,6 +80,24 @@
               {%- endif -%}
             </fieldset>
           {%- endfor -%}
+        {%- endunless -%}
+
+        {%- unless has_grind_option or product.tags contains 'sin-molienda' -%}
+          <fieldset class="option" data-grind-property>
+            <legend>{{ 'product.grind_label' | t }}</legend>
+            <div class="pills">
+              {%- assign grind_keys = 'grano,espresso,italiana,filtro,prensa' | split: ',' -%}
+              {%- assign grind_values = 'Grano|Espresso|Italiana|Filtro / V60|Prensa francesa / Cold brew' | split: '|' -%}
+              {%- for key in grind_keys -%}
+                {%- assign grind_key = 'product.grind_' | append: key -%}
+                <label class="pill">
+                  <input type="radio" name="properties[Molienda]" value="{{ grind_values[forloop.index0] }}" {% if forloop.first %}checked{% endif %}>
+                  <span>{{ grind_key | t }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+            <p class="option__help" data-grind-help='{{ 'product.grind_help_json' | t }}'></p>
+          </fieldset>
         {%- endunless -%}
 
         {%- if has_plans -%}

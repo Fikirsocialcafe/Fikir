@@ -280,7 +280,13 @@
     "shipping_text": "We ship with SEUR to mainland Spain in 3-5 working days. Shipping costs €5.90 and is free from €{{ amount }}. As it's a food product, we only accept returns if the order arrives damaged or wrong.",
     "related": "You may also like",
     "view_image": "View image {{ number }}",
-    "sticky_add": "Add to cart"
+    "sticky_add": "Add to cart",
+    "grind_label": "Grind",
+    "grind_grano": "Whole bean",
+    "grind_espresso": "Espresso",
+    "grind_italiana": "Moka pot",
+    "grind_filtro": "Filter / V60",
+    "grind_prensa": "French press / Cold brew"
   },
   "collection": {
     "eyebrow": "Shop",
