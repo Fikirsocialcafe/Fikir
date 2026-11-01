@@ -134,9 +134,11 @@
       priceEl.textContent = planPrice || variant.price;
       button.disabled = !variant.available;
       button.textContent = variant.available ? window.fikir.strings.add : window.fikir.strings.sold_out;
-      const url = new URL(window.location.href);
-      url.searchParams.set('variant', variant.id);
-      window.history.replaceState({}, '', url);
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('variant', variant.id);
+        window.history.replaceState({}, '', url);
+      } catch (e) { /* vistas previas sin URL propia */ }
     };
     $$('fieldset[data-option] input', root).forEach((i) => i.addEventListener('change', update));
 
