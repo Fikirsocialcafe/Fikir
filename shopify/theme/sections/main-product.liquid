@@ -44,6 +44,9 @@
         {%- if product.metafields.custom.pais != blank -%}{{ product.metafields.custom.pais }} · {{ product.metafields.custom.region }}{%- else -%}{{ product.type }}{%- endif -%}
       </span>
       <h1 class="product__title h2">{{ product.title }}</h1>
+      {%- for block in section.blocks -%}
+        {%- if block.type == '@app' -%}<div class="product__app-block" {{ block.shopify_attributes }}>{% render block %}</div>{%- endif -%}
+      {%- endfor -%}
       {%- if product.metafields.custom.notas != blank -%}
         <p class="product__notes notes">{{ product.metafields.custom.notas }}</p>
       {%- endif -%}
@@ -232,6 +235,16 @@
       {%- if current_variant.sku != blank %}
       "sku": {{ current_variant.sku | json }},
       {%- endif %}
+      {%- assign rating_count = product.metafields.reviews.rating_count.value | default: 0 -%}
+      {%- if rating_count > 0 and product.metafields.reviews.rating.value != blank %}
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": {{ product.metafields.reviews.rating.value.rating | json }},
+        "bestRating": {{ product.metafields.reviews.rating.value.scale_max | json }},
+        "worstRating": {{ product.metafields.reviews.rating.value.scale_min | json }},
+        "ratingCount": {{ rating_count | json }}
+      },
+      {%- endif %}
       "offers": [
         {%- for v in product.variants %}
         {
@@ -270,5 +283,5 @@
   </script>
 </section>
 {% schema %}
-{ "name": "Producto", "settings": [] }
+{ "name": "Producto", "settings": [], "blocks": [{ "type": "@app" }] }
 {% endschema %}
