@@ -189,22 +189,83 @@
   <script type="application/json" data-variants>
     [{%- for v in product.variants -%}{"id": {{ v.id }}, "available": {{ v.available }}, "price": {{ v.price | money | json }}, "options": {{ v.options | json }}, "plans": { {%- for a in v.selling_plan_allocations -%}"{{ a.selling_plan.id }}": {{ a.price | money | json }}{% unless forloop.last %},{% endunless %}{%- endfor -%} }}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
   </script>
+  {%- liquid
+    assign ld_url = request.origin | append: product.url
+    assign ld_images = ''
+    for media in product.media limit: 6
+      if media.media_type == 'image'
+        assign ld_img = media | image_url: width: 1200
+        assign ld_images = ld_images | append: 'https:' | append: ld_img | append: '|'
+      endif
+    endfor
+    assign ld_images = ld_images | split: '|'
+    assign ld_valid_until = 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d'
+  -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org/",
       "@type": "Product",
+      "@id": {{ ld_url | append: '#product' | json }},
+      "url": {{ ld_url | json }},
       "name": {{ product.title | json }},
-      "image": {{ product.featured_media | image_url: width: 1200 | prepend: 'https:' | json }},
-      "description": {{ product.description | strip_html | json }},
+      "image": {{ ld_images | json }},
+      "description": {{ product.description | strip_html | strip | json }},
       "brand": { "@type": "Brand", "name": "Fikir Social Café" },
+      "manufacturer": { "@id": {{ request.origin | append: '/#organization' | json }} },
+      "category": {{ product.type | json }},
+      {%- if product.metafields.custom.pais != blank %}
+      "countryOfOrigin": { "@type": "Country", "name": {{ product.metafields.custom.pais.value | json }} },
+      "additionalProperty": [
+        {%- assign ld_props = 'region,productor,altitud,variedad,proceso,cosecha,sca,notas,perfil' | split: ',' -%}
+        {%- assign ld_names = 'Región,Productor,Altitud,Variedad,Proceso,Cosecha,Puntuación SCA,Notas de cata,Perfil' | split: ',' -%}
+        {%- assign ld_first = true -%}
+        {%- for key in ld_props -%}
+          {%- assign ld_value = product.metafields.custom[key].value -%}
+          {%- if ld_value != blank -%}
+            {%- unless ld_first %},{% endunless %}
+            { "@type": "PropertyValue", "name": {{ ld_names[forloop.index0] | json }}, "value": {{ ld_value | json }} }
+            {%- assign ld_first = false -%}
+          {%- endif -%}
+        {%- endfor %}
+      ],
+      {%- endif %}
+      {%- if current_variant.sku != blank %}
       "sku": {{ current_variant.sku | json }},
-      "offers": {
-        "@type": "AggregateOffer",
-        "priceCurrency": {{ cart.currency.iso_code | json }},
-        "lowPrice": {{ product.price_min | divided_by: 100.0 | json }},
-        "highPrice": {{ product.price_max | divided_by: 100.0 | json }},
-        "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"
-      }
+      {%- endif %}
+      "offers": [
+        {%- for v in product.variants %}
+        {
+          "@type": "Offer",
+          "url": {{ ld_url | append: '?variant=' | append: v.id | json }},
+          "name": {{ v.title | json }},
+          {%- if v.sku != blank %}"sku": {{ v.sku | json }},{% endif %}
+          "price": {{ v.price | divided_by: 100.0 | json }},
+          "priceCurrency": {{ cart.currency.iso_code | json }},
+          "priceValidUntil": {{ ld_valid_until | json }},
+          "itemCondition": "https://schema.org/NewCondition",
+          "availability": "https://schema.org/{% if v.available %}InStock{% else %}OutOfStock{% endif %}",
+          "seller": { "@id": {{ request.origin | append: '/#organization' | json }} },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": { "@type": "MonetaryAmount", "value": {% if product.tags contains 'suscripcion' or v.price >= 5000 %}0{% else %}5.9{% endif %}, "currency": "EUR" },
+            "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "ES" },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 2, "unitCode": "DAY" },
+              "transitTime": { "@type": "QuantitativeValue", "minValue": 2, "maxValue": 3, "unitCode": "DAY" }
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "ES",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": "https://schema.org/ReturnByMail",
+            "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+          }
+        }{% unless forloop.last %},{% endunless %}
+        {%- endfor %}
+      ]
     }
   </script>
 </section>

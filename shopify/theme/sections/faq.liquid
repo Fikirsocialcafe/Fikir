@@ -23,6 +23,30 @@
     </div>
   </div>
 </section>
+{%- comment -%} FAQPage para Google y asistentes de IA, con las mismas preguntas que se ven en la página. {%- endcomment -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {%- assign faq_first = true -%}
+      {%- for i in (1..section.settings.count) -%}
+        {%- capture q -%}{{ k }}.q{{ i }}{%- endcapture -%}
+        {%- capture a -%}{{ k }}.a{{ i }}{%- endcapture -%}
+        {%- unless faq_first %},{% endunless %}
+        { "@type": "Question", "name": {{ q | t | strip_html | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ a | t | strip_html | json }} } }
+        {%- assign faq_first = false -%}
+      {%- endfor -%}
+      {%- for block in section.blocks -%}
+        {%- if block.settings.question != blank and block.settings.answer != blank -%}
+          {%- unless faq_first %},{% endunless %}
+          { "@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} } }
+          {%- assign faq_first = false -%}
+        {%- endif -%}
+      {%- endfor %}
+    ]
+  }
+</script>
 {% schema %}
 {
   "name": "Preguntas frecuentes",
