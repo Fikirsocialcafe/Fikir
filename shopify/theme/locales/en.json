@@ -1,14 +1,15 @@
 {
   "general": {
     "page": "Page {{ page }}",
-    "meta_description": "Specialty coffee from Ethiopia, Kenya and Uganda. Fikir Social Café reinvests 100% of its net profit in social projects in the countries of origin.",
+    "meta_description": "Charitable specialty coffee from Ethiopia, Kenya and Uganda. Fikir Social Café reinvests 100% of its net profit in social projects in the countries of origin. Gifts for coffee lovers with impact.",
     "skip_to_content": "Skip to content",
     "close": "Close",
     "menu": "Menu",
     "language": "Language",
     "view_all": "View all",
     "404_title": "This page doesn't exist",
-    "404_text": "The link may have changed. Head back to the shop and find your coffee."
+    "404_text": "The link may have changed. Head back to the shop and find your coffee.",
+    "home_title": "Fikir Social Café · Social impact specialty coffee from Ethiopia, Kenya and Uganda"
   },
   "announcement": {
     "default": "Free shipping on mainland Spain from €50",
@@ -27,7 +28,7 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Specialty coffee · East Africa",
+      "eyebrow": "Social impact specialty coffee · East Africa",
       "heading": "What connects us shouldn't be unfair.",
       "text": "We roast coffee from Ethiopia, Kenya and Uganda. 100% of our net profit goes back to social projects in those same countries.",
       "button": "Shop the coffees",
@@ -221,7 +222,11 @@
       "q9": "Can I return an order?",
       "a9": "As it's a food product, we can't accept returns of opened coffee. If your order arrives damaged or wrong, write to us within 14 days and we'll sort it out.",
       "q10": "Where does the profit go?",
-      "a10": "Fikir Social Café reinvests 100% of its annual net profit in social projects in Ethiopia, Kenya and Uganda, in each coffee's country."
+      "a10": "Fikir Social Café reinvests 100% of its annual net profit in social projects in Ethiopia, Kenya and Uganda, in each coffee's country.",
+      "q11": "Is Fikir a charitable coffee?",
+      "a11": "Yes. Fikir Social Café sells specialty coffee from smallholders in Ethiopia, Kenya and Uganda, and the company reinvests 100% of its annual net profit in social projects in those same countries. It is not Fairtrade certified: it is a social impact company.",
+      "q12": "Which coffee should I give a coffee lover?",
+      "a12": "If you don't know how they drink it, the three-origin pack (Ethiopia, Kenya and Uganda) or the 250 g gift tin. If they like it mild and with milk, Uganda Kitooma; if they drink it black, Ethiopia. We also prepare custom charitable gifts for companies."
     },
     "impact": {
       "heading": "Questions about our impact",

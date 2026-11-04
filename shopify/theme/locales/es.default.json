@@ -1,14 +1,15 @@
 {
   "general": {
     "page": "Página {{ page }}",
-    "meta_description": "Café de especialidad de Etiopía, Kenia y Uganda. Fikir Social Café reinvierte el 100 % de su beneficio neto en proyectos sociales en los países de origen.",
+    "meta_description": "Café solidario de especialidad de Etiopía, Kenia y Uganda. Fikir Social Café reinvierte el 100 % de su beneficio neto en proyectos sociales en los países de origen. Regalos para cafeteros con impacto.",
     "skip_to_content": "Ir al contenido",
     "close": "Cerrar",
     "menu": "Menú",
     "language": "Idioma",
     "view_all": "Ver todo",
     "404_title": "Esta página no existe",
-    "404_text": "Puede que el enlace haya cambiado. Vuelve a la tienda y encuentra tu café."
+    "404_text": "Puede que el enlace haya cambiado. Vuelve a la tienda y encuentra tu café.",
+    "home_title": "Fikir Social Café · Café solidario de especialidad de Etiopía, Kenia y Uganda"
   },
   "announcement": {
     "default": "Envío gratis en península desde 50 €",
@@ -27,7 +28,7 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Café de especialidad · África Oriental",
+      "eyebrow": "Café solidario de especialidad · África Oriental",
       "heading": "Lo que nos une no debería ser injusto.",
       "text": "Tostamos café de Etiopía, Kenia y Uganda. El 100 % del beneficio neto vuelve a proyectos sociales en esos mismos países.",
       "button": "Ver los cafés",
@@ -221,7 +222,11 @@
       "q9": "¿Puedo devolver un pedido?",
       "a9": "Al ser un alimento, no aceptamos devoluciones de café abierto. Si tu pedido llega dañado o con un error, escríbenos en los 14 días siguientes y lo solucionamos.",
       "q10": "¿A dónde va el beneficio?",
-      "a10": "Fikir Social Café reinvierte el 100 % de su beneficio neto anual en proyectos sociales en Etiopía, Kenia y Uganda, en el país de cada café."
+      "a10": "Fikir Social Café reinvierte el 100 % de su beneficio neto anual en proyectos sociales en Etiopía, Kenia y Uganda, en el país de cada café.",
+      "q11": "¿Fikir es un café solidario?",
+      "a11": "Sí. Fikir Social Café es café de especialidad de pequeños productores de Etiopía, Kenia y Uganda, y la empresa reinvierte el 100 % de su beneficio neto anual en proyectos sociales en esos mismos países. No es café de comercio justo certificado: es una empresa de impacto social.",
+      "q12": "¿Qué café regalo a un cafetero?",
+      "a12": "Si no sabes cómo lo toma, el pack de 3 orígenes (Etiopía, Kenia y Uganda) o la lata regalo de 250 g. Si le gusta suave y con leche, Uganda Kitooma; si lo toma solo, Etiopía. Para empresas preparamos regalos solidarios a medida."
     },
     "impact": {
       "heading": "Preguntas sobre el impacto",
