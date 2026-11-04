@@ -1,0 +1,26 @@
+{%- comment -%}
+  robots.txt de Fikir Social Café.
+  Mantiene las reglas por defecto de Shopify y deja entrar de forma expresa a los rastreadores
+  de buscadores con IA (ChatGPT, Claude, Perplexity, Gemini, Copilot, Apple), para que puedan leer y citar la tienda.
+{%- endcomment -%}
+{% for group in robots.default_groups %}
+  {{- group.user_agent }}
+  {%- for rule in group.rules -%}
+    {{ rule }}
+  {%- endfor -%}
+  {%- if group.sitemap != blank -%}
+    {{ group.sitemap }}
+  {%- endif -%}
+{% endfor %}
+{%- assign ai_bots = 'OAI-SearchBot,ChatGPT-User,GPTBot,ClaudeBot,Claude-SearchBot,Claude-User,PerplexityBot,Perplexity-User,Google-Extended,Applebot-Extended,DuckAssistBot,MistralAI-User' | split: ',' %}
+{% for bot in ai_bots %}
+User-agent: {{ bot }}
+Allow: /
+Disallow: /cart
+Disallow: /checkout
+Disallow: /checkouts/
+Disallow: /account
+Disallow: /orders
+Disallow: /search
+{% endfor %}
+# Resumen para modelos de lenguaje: {{ request.origin }}/llms.txt

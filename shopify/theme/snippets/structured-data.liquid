@@ -1,0 +1,122 @@
+{%- comment -%}
+  Datos estructurados (schema.org) para Google y para los asistentes de IA.
+  - En todas las páginas: la tienda (OnlineStore) y el sitio web (WebSite con buscador).
+  - En producto y colección: migas de pan (BreadcrumbList).
+  - En artículos del blog: Article.
+  La ficha Product está en sections/main-product.liquid y las FAQPage en sections/faq.liquid.
+{%- endcomment -%}
+{%- liquid
+  assign shop_url = request.origin
+  assign logo_url = 'logo-fikir-social-cafe.png' | asset_url | prepend: 'https:'
+  assign same_as = ''
+  if settings.instagram != blank
+    assign same_as = same_as | append: settings.instagram | append: '|'
+  endif
+  if settings.linkedin != blank
+    assign same_as = same_as | append: settings.linkedin | append: '|'
+  endif
+  if settings.tiktok != blank
+    assign same_as = same_as | append: settings.tiktok | append: '|'
+  endif
+  if settings.youtube != blank
+    assign same_as = same_as | append: settings.youtube | append: '|'
+  endif
+  assign same_as = same_as | split: '|'
+  assign search_target = shop_url | append: routes.search_url | append: '?q={search_term_string}'
+-%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "OnlineStore",
+        "@id": {{ shop_url | append: '/#organization' | json }},
+        "name": "Fikir Social Café",
+        "legalName": "Fikir Social Café, S.L.",
+        "url": {{ shop_url | append: '/' | json }},
+        "logo": {{ logo_url | json }},
+        "image": {{ 'home-hero.jpg' | asset_url | prepend: 'https:' | json }},
+        "description": {{ 'general.meta_description' | t | json }},
+        "slogan": {{ 'home.hero.heading' | t | json }},
+        "email": {{ settings.contact_email | json }},
+        {%- if settings.whatsapp != blank %}
+        "telephone": {{ settings.whatsapp | prepend: '+' | json }},
+        {%- endif %}
+        "founder": { "@type": "Person", "name": "Pablo Esteve Rozas" },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Calle Federico García Lorca 49",
+          "postalCode": "28220",
+          "addressLocality": "Majadahonda",
+          "addressRegion": "Madrid",
+          "addressCountry": "ES"
+        },
+        "areaServed": { "@type": "Country", "name": "España" },
+        "knowsAbout": ["Café de especialidad", "Café solidario", "Café de Etiopía", "Café de Kenia", "Café de Uganda", "Comercio con impacto social", "Regalos para cafeteros", "Regalos solidarios", "Regalos de empresa"],
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "ES",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 14,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility",
+          "url": {{ shop_url | append: '/pages/devoluciones' | json }}
+        }
+        {%- if same_as.size > 0 -%},
+        "sameAs": {{ same_as | json }}
+        {%- endif %}
+      },
+      {
+        "@type": "WebSite",
+        "@id": {{ shop_url | append: '/#website' | json }},
+        "name": "Fikir Social Café",
+        "url": {{ shop_url | append: '/' | json }},
+        "inLanguage": {{ request.locale.iso_code | json }},
+        "publisher": { "@id": {{ shop_url | append: '/#organization' | json }} },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": { "@type": "EntryPoint", "urlTemplate": {{ search_target | json }} },
+          "query-input": "required name=search_term_string"
+        }
+      }
+      {%- if request.page_type == 'product' -%},
+      {%- assign crumb_collection = collection | default: product.collections.first -%}
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": {{ shop.name | json }}, "item": {{ shop_url | append: routes.root_url | json }} }
+          {%- if crumb_collection -%},
+          { "@type": "ListItem", "position": 2, "name": {{ crumb_collection.title | json }}, "item": {{ shop_url | append: crumb_collection.url | json }} },
+          { "@type": "ListItem", "position": 3, "name": {{ product.title | json }}, "item": {{ shop_url | append: product.url | json }} }
+          {%- else -%},
+          { "@type": "ListItem", "position": 2, "name": {{ product.title | json }}, "item": {{ shop_url | append: product.url | json }} }
+          {%- endif %}
+        ]
+      }
+      {%- elsif request.page_type == 'collection' and collection -%},
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": {{ shop.name | json }}, "item": {{ shop_url | append: routes.root_url | json }} },
+          { "@type": "ListItem", "position": 2, "name": {{ collection.title | json }}, "item": {{ shop_url | append: collection.url | json }} }
+        ]
+      }
+      {%- elsif request.page_type == 'article' and article -%},
+      {
+        "@type": "Article",
+        "headline": {{ article.title | json }},
+        "description": {{ article.excerpt_or_content | strip_html | truncate: 300 | json }},
+        {%- if article.image %}
+        "image": {{ article.image | image_url: width: 1200 | prepend: 'https:' | json }},
+        {%- endif %}
+        "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+        "dateModified": {{ article.updated_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+        "author": { "@type": "Person", "name": {{ article.author | json }} },
+        "publisher": { "@id": {{ shop_url | append: '/#organization' | json }} },
+        "mainEntityOfPage": {{ shop_url | append: article.url | json }},
+        "inLanguage": {{ request.locale.iso_code | json }}
+      }
+      {%- endif %}
+    ]
+  }
+</script>

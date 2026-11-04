@@ -1,109 +1,404 @@
 /**
- * Shopify Storefront API integration for Fikir Coffee.
+ * Shopify Storefront API client for Fikir Coffee.
  *
- * To connect:
- * 1. Set NEXT_PUBLIC_SHOPIFY_DOMAIN in .env.local (e.g. "fikir-coffee.myshopify.com")
- * 2. Set NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN in .env.local
- * 3. Products, checkout, and cart will automatically use Shopify as backend
+ * Uses the public Storefront token (NEXT_PUBLIC_*), so these helpers can
+ * run both in server components and in API route handlers.
  */
 
-const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN || "";
-const STOREFRONT_TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN || "";
+import { createStorefrontApiClient } from "@shopify/storefront-api-client";
 
-const SHOPIFY_GRAPHQL_URL = SHOPIFY_DOMAIN
-  ? `https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`
-  : "";
+const SHOPIFY_STORE_DOMAIN =
+  process.env.SHOPIFY_STORE_DOMAIN ||
+  process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN ||
+  "";
+const SHOPIFY_STOREFRONT_ACCESS_TOKEN =
+  process.env.SHOPIFY_STOREFRONT_TOKEN ||
+  process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN ||
+  "";
 
 export function isShopifyConfigured(): boolean {
-  return Boolean(SHOPIFY_DOMAIN && STOREFRONT_TOKEN);
+  return Boolean(SHOPIFY_STORE_DOMAIN && SHOPIFY_STOREFRONT_ACCESS_TOKEN);
 }
 
-async function shopifyFetch<T>(query: string, variables?: Record<string, unknown>): Promise<T> {
+let cachedClient: ReturnType<typeof createStorefrontApiClient> | null = null;
+
+function client() {
   if (!isShopifyConfigured()) {
-    throw new Error("Shopify is not configured. Set environment variables.");
+    throw new Error("Shopify is not configured");
   }
-
-  const response = await fetch(SHOPIFY_GRAPHQL_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Shopify-Storefront-Access-Token": STOREFRONT_TOKEN,
-    },
-    body: JSON.stringify({ query, variables }),
-  });
-
-  const json = await response.json();
-  if (json.errors) {
-    throw new Error(json.errors[0].message);
+  if (!cachedClient) {
+    cachedClient = createStorefrontApiClient({
+      storeDomain: SHOPIFY_STORE_DOMAIN,
+      // Shopify 2024-01 is already deprecated; 2025-07 is the current stable.
+      apiVersion: "2025-07",
+      publicAccessToken: SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+    });
   }
-  return json.data;
+  return cachedClient;
 }
 
-export async function getProducts() {
-  return shopifyFetch(`
-    {
-      products(first: 10) {
+// --- Catalog ---------------------------------------------------------------
+
+export interface ShopifyProductSummary {
+  id: string;
+  handle: string;
+  title: string;
+  description: string;
+  availableForSale: boolean;
+  featuredImage: { url: string; altText: string | null } | null;
+  priceRange: {
+    minVariantPrice: { amount: string; currencyCode: string };
+  };
+}
+
+export async function getProducts(first = 20): Promise<ShopifyProductSummary[]> {
+  const query = /* GraphQL */ `
+    query Products($first: Int!) {
+      products(first: $first) {
         edges {
           node {
             id
-            title
             handle
+            title
             description
-            priceRange { minVariantPrice { amount currencyCode } }
-            images(first: 1) { edges { node { url altText } } }
-            variants(first: 10) {
-              edges { node { id title priceV2 { amount currencyCode } } }
+            availableForSale
+            featuredImage { url altText }
+            priceRange {
+              minVariantPrice { amount currencyCode }
             }
           }
         }
       }
     }
-  `);
+  `;
+  const { data, errors } = await client().request<{
+    products: { edges: { node: ShopifyProductSummary }[] };
+  }>(query, { variables: { first } });
+  if (errors) throw new Error(errors.message || "getProducts failed");
+  return data?.products?.edges?.map((e) => e.node) ?? [];
 }
 
-export async function getProductByHandle(handle: string) {
-  return shopifyFetch(`
-    query getProduct($handle: String!) {
-      productByHandle(handle: $handle) {
+export interface SellingPlan {
+  id: string;
+  name: string;
+  description: string | null;
+  recurringDeliveries: boolean;
+}
+
+export interface ShopifyProductDetail extends ShopifyProductSummary {
+  images: { url: string; altText: string | null }[];
+  variants: {
+    id: string;
+    title: string;
+    availableForSale: boolean;
+    price: { amount: string; currencyCode: string };
+  }[];
+  sellingPlanGroups: {
+    name: string;
+    sellingPlans: SellingPlan[];
+  }[];
+}
+
+export async function getProductByHandle(
+  handle: string
+): Promise<ShopifyProductDetail | null> {
+  const query = /* GraphQL */ `
+    query ProductByHandle($handle: String!) {
+      product(handle: $handle) {
         id
-        title
         handle
-        descriptionHtml
+        title
+        description
+        availableForSale
+        featuredImage { url altText }
         priceRange { minVariantPrice { amount currencyCode } }
-        images(first: 5) { edges { node { url altText } } }
-        variants(first: 10) {
-          edges { node { id title priceV2 { amount currencyCode } } }
+        images(first: 10) {
+          edges { node { url altText } }
+        }
+        variants(first: 20) {
+          edges {
+            node {
+              id
+              title
+              availableForSale
+              price { amount currencyCode }
+            }
+          }
+        }
+        sellingPlanGroups(first: 5) {
+          edges {
+            node {
+              name
+              sellingPlans(first: 20) {
+                edges {
+                  node {
+                    id
+                    name
+                    description
+                    recurringDeliveries
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
-  `, { handle });
+  `;
+  const { data, errors } = await client().request<{
+    product: {
+      id: string;
+      handle: string;
+      title: string;
+      description: string;
+      availableForSale: boolean;
+      featuredImage: { url: string; altText: string | null } | null;
+      priceRange: { minVariantPrice: { amount: string; currencyCode: string } };
+      images: { edges: { node: { url: string; altText: string | null } }[] };
+      variants: {
+        edges: {
+          node: {
+            id: string;
+            title: string;
+            availableForSale: boolean;
+            price: { amount: string; currencyCode: string };
+          };
+        }[];
+      };
+      sellingPlanGroups: {
+        edges: {
+          node: {
+            name: string;
+            sellingPlans: { edges: { node: SellingPlan }[] };
+          };
+        }[];
+      };
+    } | null;
+  }>(query, { variables: { handle } });
+
+  if (errors) throw new Error(errors.message || "getProductByHandle failed");
+  if (!data?.product) return null;
+
+  const p = data.product;
+  return {
+    id: p.id,
+    handle: p.handle,
+    title: p.title,
+    description: p.description,
+    availableForSale: p.availableForSale,
+    featuredImage: p.featuredImage,
+    priceRange: p.priceRange,
+    images: p.images.edges.map((e) => e.node),
+    variants: p.variants.edges.map((e) => e.node),
+    sellingPlanGroups: p.sellingPlanGroups.edges.map((e) => ({
+      name: e.node.name,
+      sellingPlans: e.node.sellingPlans.edges.map((spe) => spe.node),
+    })),
+  };
 }
 
-export async function createCheckout(variantId: string, quantity: number = 1) {
-  return shopifyFetch(`
-    mutation checkoutCreate($input: CheckoutCreateInput!) {
-      checkoutCreate(input: $input) {
-        checkout {
+// --- Cart ------------------------------------------------------------------
+
+export interface CartLine {
+  id: string;
+  quantity: number;
+  merchandise: {
+    id: string;
+    title: string;
+    product: { title: string; handle: string };
+    image?: { url: string; altText: string | null } | null;
+    price: { amount: string; currencyCode: string };
+  };
+  sellingPlanAllocation?: { sellingPlan: { id: string; name: string } } | null;
+  cost: {
+    totalAmount: { amount: string; currencyCode: string };
+  };
+}
+
+export interface CartDiscountCode {
+  code: string;
+  applicable: boolean;
+}
+
+export interface Cart {
+  id: string;
+  checkoutUrl: string;
+  totalQuantity: number;
+  cost: {
+    subtotalAmount: { amount: string; currencyCode: string };
+    totalAmount: { amount: string; currencyCode: string };
+  };
+  lines: CartLine[];
+  discountCodes: CartDiscountCode[];
+}
+
+const CART_FRAGMENT = /* GraphQL */ `
+  fragment CartFields on Cart {
+    id
+    checkoutUrl
+    totalQuantity
+    cost {
+      subtotalAmount { amount currencyCode }
+      totalAmount { amount currencyCode }
+    }
+    discountCodes { code applicable }
+    lines(first: 50) {
+      edges {
+        node {
           id
-          webUrl
+          quantity
+          sellingPlanAllocation { sellingPlan { id name } }
+          merchandise {
+            ... on ProductVariant {
+              id
+              title
+              product { title handle }
+              image { url altText }
+              price { amount currencyCode }
+            }
+          }
+          cost {
+            totalAmount { amount currencyCode }
+          }
         }
-        checkoutUserErrors { message field }
       }
     }
-  `, {
-    input: {
-      lineItems: [{ variantId, quantity }],
-    },
-  });
+  }
+`;
+
+type RawCart = Omit<Cart, "lines"> & {
+  lines: { edges: { node: CartLine }[] };
+};
+
+function normalizeCart(raw: RawCart | null | undefined): Cart | null {
+  if (!raw) return null;
+  return {
+    id: raw.id,
+    checkoutUrl: raw.checkoutUrl,
+    totalQuantity: raw.totalQuantity,
+    cost: raw.cost,
+    discountCodes: raw.discountCodes ?? [],
+    lines: raw.lines.edges.map((edge) => edge.node),
+  };
 }
 
-/**
- * Get the checkout URL for a product.
- * When Shopify is not configured, returns "#" as a placeholder.
- */
-export function getCheckoutUrl(variantId?: string): string {
-  if (!isShopifyConfigured()) {
-    return "#shopify-not-configured";
-  }
-  return `https://${SHOPIFY_DOMAIN}/cart/${variantId}:1`;
+export interface CartLineInput {
+  merchandiseId: string;
+  quantity: number;
+  sellingPlanId?: string;
+}
+
+export async function createCart(): Promise<Cart | null> {
+  const query = /* GraphQL */ `
+    ${CART_FRAGMENT}
+    mutation CartCreate {
+      cartCreate {
+        cart { ...CartFields }
+        userErrors { field message }
+      }
+    }
+  `;
+  const { data, errors } = await client().request<{
+    cartCreate: { cart: RawCart | null; userErrors: { message: string }[] };
+  }>(query);
+  if (errors) throw new Error(errors.message || "cartCreate failed");
+  return normalizeCart(data?.cartCreate?.cart);
+}
+
+export async function addCartLines(
+  cartId: string,
+  lines: CartLineInput[]
+): Promise<Cart | null> {
+  const query = /* GraphQL */ `
+    ${CART_FRAGMENT}
+    mutation CartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
+      cartLinesAdd(cartId: $cartId, lines: $lines) {
+        cart { ...CartFields }
+        userErrors { field message }
+      }
+    }
+  `;
+  const { data, errors } = await client().request<{
+    cartLinesAdd: { cart: RawCart | null; userErrors: { message: string }[] };
+  }>(query, { variables: { cartId, lines } });
+  if (errors) throw new Error(errors.message || "cartLinesAdd failed");
+  return normalizeCart(data?.cartLinesAdd?.cart);
+}
+
+export async function updateCartLines(
+  cartId: string,
+  lines: { id: string; quantity: number }[]
+): Promise<Cart | null> {
+  const query = /* GraphQL */ `
+    ${CART_FRAGMENT}
+    mutation CartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+      cartLinesUpdate(cartId: $cartId, lines: $lines) {
+        cart { ...CartFields }
+        userErrors { field message }
+      }
+    }
+  `;
+  const { data, errors } = await client().request<{
+    cartLinesUpdate: { cart: RawCart | null; userErrors: { message: string }[] };
+  }>(query, { variables: { cartId, lines } });
+  if (errors) throw new Error(errors.message || "cartLinesUpdate failed");
+  return normalizeCart(data?.cartLinesUpdate?.cart);
+}
+
+export async function removeCartLines(
+  cartId: string,
+  lineIds: string[]
+): Promise<Cart | null> {
+  const query = /* GraphQL */ `
+    ${CART_FRAGMENT}
+    mutation CartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+      cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+        cart { ...CartFields }
+        userErrors { field message }
+      }
+    }
+  `;
+  const { data, errors } = await client().request<{
+    cartLinesRemove: { cart: RawCart | null; userErrors: { message: string }[] };
+  }>(query, { variables: { cartId, lineIds } });
+  if (errors) throw new Error(errors.message || "cartLinesRemove failed");
+  return normalizeCart(data?.cartLinesRemove?.cart);
+}
+
+export async function getCart(cartId: string): Promise<Cart | null> {
+  const query = /* GraphQL */ `
+    ${CART_FRAGMENT}
+    query GetCart($cartId: ID!) {
+      cart(id: $cartId) { ...CartFields }
+    }
+  `;
+  const { data, errors } = await client().request<{ cart: RawCart | null }>(
+    query,
+    { variables: { cartId } }
+  );
+  if (errors) throw new Error(errors.message || "getCart failed");
+  return normalizeCart(data?.cart);
+}
+
+export async function updateCartDiscountCodes(
+  cartId: string,
+  discountCodes: string[]
+): Promise<Cart | null> {
+  const query = /* GraphQL */ `
+    ${CART_FRAGMENT}
+    mutation CartDiscountCodesUpdate($cartId: ID!, $discountCodes: [String!]) {
+      cartDiscountCodesUpdate(cartId: $cartId, discountCodes: $discountCodes) {
+        cart { ...CartFields }
+        userErrors { field message }
+      }
+    }
+  `;
+  const { data, errors } = await client().request<{
+    cartDiscountCodesUpdate: {
+      cart: RawCart | null;
+      userErrors: { message: string }[];
+    };
+  }>(query, { variables: { cartId, discountCodes } });
+  if (errors) throw new Error(errors.message || "cartDiscountCodesUpdate failed");
+  return normalizeCart(data?.cartDiscountCodesUpdate?.cart);
 }

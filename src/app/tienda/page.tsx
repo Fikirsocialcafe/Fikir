@@ -1,43 +1,99 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { products, packs } from "@/data/products";
+import Image from "next/image";
+import {
+  products as editorialProducts,
+  packs,
+  CARD_METADATA,
+  TIENDA_ORDER,
+} from "@/data/products";
 import ProductCard from "@/components/product/ProductCard";
-import { ArrowRight, Coffee, Repeat, CheckCircle } from "lucide-react";
+import ShopifyProductCard from "@/components/tienda/ShopifyProductCard";
+import {
+  getProducts,
+  isShopifyConfigured,
+  type ShopifyProductSummary,
+} from "@/lib/shopify";
+import { ArrowRight, CheckCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Tienda",
-  description: "Compra café de especialidad: Etiopía Yirgacheffe y Kenia Nyeri, packs y suscripción mensual. Envío a toda España en 3-5 días.",
+  description:
+    "Compra café de especialidad: Etiopía Yirgacheffe y Kenia Nyeri, packs y suscripción mensual. Envío a toda España en 3-5 días.",
   alternates: { canonical: "/tienda" },
   openGraph: {
     title: "Tienda | Fikir Coffee",
-    description: "Compra café de especialidad: Etiopía Yirgacheffe y Kenia Nyeri, packs y suscripción mensual.",
+    description:
+      "Compra café de especialidad: Etiopía Yirgacheffe y Kenia Nyeri, packs y suscripción mensual.",
     images: [{ url: "/images/etiopia-product.jpg" }],
   },
 };
 
-export default function TiendaPage() {
+// Revalidate Shopify catalog every 5 minutes in production.
+export const revalidate = 300;
+
+async function loadCatalog(): Promise<ShopifyProductSummary[]> {
+  if (!isShopifyConfigured()) return [];
+  try {
+    return await getProducts(20);
+  } catch (err) {
+    console.error("loadCatalog error:", err);
+    return [];
+  }
+}
+
+function requiresPdpSelector(handle: string): boolean {
+  // Subscription picks frequency + grano/molido on its PDP; always link there.
+  return handle === "suscripcion";
+}
+
+export default async function TiendaPage() {
+  // Editorial catalog (products.ts) is the source of truth for what shows
+  // on /tienda. Shopify catalog is consulted only to overlay live price /
+  // availability on the cards that match by handle. New origins (e.g.
+  // Uganda) appear here even before they exist in Shopify, and stale
+  // Shopify drafts (e.g. "Edición 001") never leak into the grid.
+  const catalog = await loadCatalog();
+  const shopifyByHandle = new Map(catalog.map((p) => [p.handle, p]));
+
+  const packByHandle = new Map(packs.map((p) => [p.handle, p]));
+  const editorialByHandle = new Map(editorialProducts.map((p) => [p.handle, p]));
+
   return (
     <div className="pt-20 lg:pt-24">
-      {/* Header */}
-      <section className="py-16 bg-fikir-white lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      {/* Header — full-bleed hero with rebrand image */}
+      <section className="relative isolate overflow-hidden bg-fikir-brown">
+        <Image
+          src="/images/tienda-hero.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-fikir-brown/70 via-fikir-brown/55 to-fikir-brown/85" />
+        <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="font-body text-sm font-semibold tracking-[0.25em] uppercase text-fikir-gold">
+            <p className="font-body text-sm font-semibold uppercase tracking-[0.25em] text-fikir-gold">
               Tienda
             </p>
-            <h1 className="mt-4 font-heading text-4xl font-bold text-fikir-brown sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 font-heading text-4xl font-bold text-fikir-cream sm:text-5xl lg:text-6xl">
               Café con propósito
             </h1>
-            <p className="mt-6 font-body text-lg leading-relaxed text-fikir-brown-light">
-              Café de especialidad tostado en pequeños lotes. Cada bolsa que compras
-              financia proyectos para la infancia en comunidades cafetaleras.
+            <p className="mt-6 font-body text-lg leading-relaxed text-fikir-cream/85">
+              Café de especialidad tostado en pequeños lotes. Cada bolsa financia
+              proyectos para la infancia en comunidades cafetaleras.
             </p>
-            {/* Trust line */}
-            <div className="mt-4 flex flex-wrap justify-center gap-4">
-              {["Envío 3-5 días · Gratis >50€", "100% beneficio reinvertido", "SCA 85+"].map((item) => (
+            <div className="mt-6 flex flex-wrap justify-center gap-4">
+              {[
+                "Envío 3-5 días · Gratis >50€",
+                "100% del beneficio neto reinvertido",
+                "Café tostado en pequeños lotes",
+                "Desde SCA 80+",
+              ].map((item) => (
                 <div key={item} className="flex items-center gap-1.5">
-                  <CheckCircle className="h-3.5 w-3.5 text-fikir-green" />
-                  <span className="font-body text-xs text-fikir-brown-light">{item}</span>
+                  <CheckCircle className="h-3.5 w-3.5 text-fikir-gold" />
+                  <span className="font-body text-xs text-fikir-cream/85">{item}</span>
                 </div>
               ))}
             </div>
@@ -45,131 +101,63 @@ export default function TiendaPage() {
         </div>
       </section>
 
-      {/* Main Products */}
-      <section className="py-16 bg-fikir-cream lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="font-heading text-3xl font-bold text-fikir-brown mb-12 text-center">
-            Nuestros orígenes
-          </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-            <ProductCard product={products[0]} badge="Más vendido" />
-            <ProductCard product={products[1]} badge="Intenso y complejo" />
-          </div>
-        </div>
-      </section>
+      {/* Unified product grid — ordered by TIENDA_ORDER */}
+      <section className="bg-fikir-cream py-16 lg:py-24">
+        <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-4">
+            {TIENDA_ORDER.map((handle) => {
+              const editorial = editorialByHandle.get(handle);
+              if (editorial) {
+                // Origin coffees: editorial card. Shopify availability is
+                // overlaid by EditorialPDP on the product page itself.
+                return <ProductCard key={handle} product={editorial} />;
+              }
 
-      {/* Packs & Subscription */}
-      <section className="py-16 bg-fikir-white lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="font-heading text-3xl font-bold text-fikir-brown mb-12 text-center">
-            Más opciones
-          </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-            {/* Pack Degustación */}
-            <div className="bg-fikir-cream rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300">
-              <div className="relative aspect-video bg-gradient-to-br from-fikir-green to-fikir-terracotta flex items-center justify-center p-8">
-                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-fikir-gold font-body text-xs font-semibold text-fikir-brown">
-                  Ideal para empezar
-                </div>
-                <div className="text-center">
-                  <Coffee className="h-12 w-12 text-fikir-cream/80 mx-auto" />
-                  <span className="mt-4 block font-heading text-3xl font-bold text-fikir-cream">
-                    Pack Degustación
-                  </span>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="font-heading text-xl font-bold text-fikir-brown">
-                  {packs[0].name}
-                </h3>
-                <p className="font-body text-sm text-fikir-brown-light mt-2 leading-relaxed">
-                  {packs[0].description}
-                </p>
-                <p className="mt-2 font-body text-sm italic text-fikir-brown-light/70">
-                  Perfecto para descubrir tu favorito
-                </p>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="font-body text-2xl font-semibold text-fikir-brown">
-                    {packs[0].price.toFixed(2)}&euro;
-                  </span>
-                  <Link
-                    href="#"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-fikir-green font-body text-sm font-semibold text-fikir-cream tracking-wide uppercase transition-colors duration-200 hover:bg-fikir-green-light cursor-pointer"
-                  >
-                    Comprar
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
+              const pack = packByHandle.get(handle);
+              if (pack) {
+                const meta = CARD_METADATA[handle];
+                const shopify = shopifyByHandle.get(handle);
+                return (
+                  <ShopifyProductCard
+                    key={pack.id}
+                    handle={pack.handle}
+                    title={pack.name}
+                    description={pack.description}
+                    imageUrl={pack.image ?? null}
+                    imageAlt={pack.name}
+                    priceAmount={
+                      shopify?.priceRange.minVariantPrice.amount ??
+                      pack.price.toFixed(2)
+                    }
+                    priceCurrency={
+                      shopify?.priceRange.minVariantPrice.currencyCode ??
+                      pack.currency
+                    }
+                    availableForSale={shopify?.availableForSale ?? true}
+                    defaultVariantId={null}
+                    detailsOnly={requiresPdpSelector(pack.handle) || !meta}
+                  />
+                );
+              }
 
-            {/* Suscripción */}
-            <div className="bg-fikir-cream rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border-2 border-fikir-gold/30">
-              <div className="relative aspect-video bg-gradient-to-br from-fikir-brown to-fikir-brown/80 flex items-center justify-center p-8">
-                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-fikir-gold font-body text-xs font-semibold text-fikir-brown">
-                  Recomendada
-                </div>
-                <div className="text-center">
-                  <Repeat className="h-12 w-12 text-fikir-gold mx-auto" />
-                  <span className="mt-4 block font-heading text-3xl font-bold text-fikir-cream">
-                    Suscripción
-                  </span>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="font-heading text-xl font-bold text-fikir-brown">
-                  {packs[1].name}
-                </h3>
-                <p className="font-body text-sm text-fikir-brown-light mt-2 leading-relaxed">
-                  {packs[1].description}
-                </p>
-                <p className="mt-2 font-body text-sm italic text-fikir-brown-light/70">
-                  Recíbelo cada mes sin preocuparte. Ahorra un 13%.
-                </p>
-                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
-                  {["Mínimo 2 meses", "Cancela cuando quieras", "Modifica o pausa"].map((t) => (
-                    <span key={t} className="flex items-center gap-1">
-                      <CheckCircle className="h-3 w-3 text-fikir-green" />
-                      <span className="font-body text-xs text-fikir-brown-light">{t}</span>
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <div>
-                    <span className="font-body text-2xl font-semibold text-fikir-brown">
-                      {packs[1].price.toFixed(2)}&euro;
-                    </span>
-                    <span className="font-body text-sm text-fikir-brown-light ml-1">
-                      /mes
-                    </span>
-                  </div>
-                  <Link
-                    href="#"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-fikir-gold font-body text-sm font-semibold text-fikir-brown tracking-wide uppercase transition-colors duration-200 hover:bg-fikir-gold-light cursor-pointer"
-                  >
-                    Suscribirse
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
+              return null;
+            })}
           </div>
         </div>
       </section>
 
       {/* Impact banner */}
-      <section className="py-16 bg-fikir-green text-center lg:py-20">
+      <section className="bg-fikir-green py-16 text-center lg:py-20">
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <h2 className="font-heading text-3xl font-bold text-fikir-cream sm:text-4xl">
             Cada bolsa financia proyectos para la infancia en origen
           </h2>
-          <p className="mt-4 font-body text-base text-fikir-cream/80 leading-relaxed">
-            El 100% de nuestro beneficio se reinvierte en proyectos infantiles en las comunidades donde
-            nace tu café. Sin intermediarios.
+          <p className="mt-4 font-body text-base leading-relaxed text-fikir-cream/80">
+            El 100% del beneficio neto —tras cubrir costes operativos— se reinvierte en proyectos para la infancia en origen. Sin intermediarios.
           </p>
           <Link
             href="/impacto"
-            className="mt-8 inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-fikir-gold font-body text-sm font-semibold text-fikir-brown tracking-wide uppercase transition-all duration-200 hover:bg-fikir-gold-light cursor-pointer"
+            className="mt-8 inline-flex cursor-pointer items-center gap-2 rounded-lg bg-fikir-gold px-8 py-4 font-body text-sm font-semibold uppercase tracking-wide text-fikir-brown transition-all duration-200 hover:bg-fikir-gold-light"
           >
             Descubrir el impacto
             <ArrowRight className="h-4 w-4" />

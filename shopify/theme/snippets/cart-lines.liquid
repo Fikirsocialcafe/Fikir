@@ -1,0 +1,69 @@
+<ul class="cart-items">
+  {%- for item in cart.items -%}
+    <li class="cart-item">
+      <a href="{{ item.url }}">
+        {%- if item.image -%}{{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: item.product.title }}{%- endif -%}
+      </a>
+      <div>
+        <a class="cart-item__title" href="{{ item.url }}">{{ item.product.title }}</a>
+        {%- unless item.product.has_only_default_variant -%}
+          <div class="cart-item__meta">
+            {%- for option in item.options_with_values -%}{{ option.name }}: {{ option.value }}{% unless forloop.last %} · {% endunless %}{%- endfor -%}
+          </div>
+        {%- endunless -%}
+        {%- for property in item.properties -%}
+          {%- assign first_char = property.first | slice: 0 -%}
+          {%- if property.last != blank and first_char != '_' -%}
+            {%- liquid
+              assign prop_name = property.first
+              assign prop_value = property.last
+              if property.first == 'Molienda'
+                assign prop_name = 'product.grind_label' | t
+                case property.last
+                  when 'Grano'
+                    assign prop_value = 'product.grind_grano' | t
+                  when 'Espresso'
+                    assign prop_value = 'product.grind_espresso' | t
+                  when 'Italiana'
+                    assign prop_value = 'product.grind_italiana' | t
+                  when 'Filtro / V60'
+                    assign prop_value = 'product.grind_filtro' | t
+                  when 'Prensa francesa / Cold brew'
+                    assign prop_value = 'product.grind_prensa' | t
+                endcase
+              endif
+            -%}
+            <div class="cart-item__meta">{{ prop_name }}: {{ prop_value }}</div>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if item.selling_plan_allocation -%}
+          <div class="cart-item__meta">{{ item.selling_plan_allocation.selling_plan.name }}</div>
+        {%- endif -%}
+        {%- for discount in item.line_level_discount_allocations -%}
+          <div class="discount-line">{{ discount.discount_application.title }} (−{{ discount.amount | money }})</div>
+        {%- endfor -%}
+        {%- if form_mode == 'page' -%}
+          <div class="qty">
+            <button type="button" data-qty="minus" aria-label="{{ 'cart.decrease' | t }}">−</button>
+            <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="{{ 'cart.quantity' | t }}">
+            <button type="button" data-qty="plus" aria-label="{{ 'cart.increase' | t }}">+</button>
+          </div>
+          <a class="cart-item__remove" href="{{ item.url_to_remove }}">{{ 'cart.remove' | t }}</a>
+        {%- else -%}
+          <div class="qty">
+            <button type="button" data-qty="minus" aria-label="{{ 'cart.decrease' | t }}">−</button>
+            <input type="number" value="{{ item.quantity }}" min="0" data-line-qty="{{ forloop.index }}" aria-label="{{ 'cart.quantity' | t }}">
+            <button type="button" data-qty="plus" aria-label="{{ 'cart.increase' | t }}">+</button>
+          </div>
+          <button class="cart-item__remove" type="button" data-line-remove="{{ forloop.index }}">{{ 'cart.remove' | t }}</button>
+        {%- endif -%}
+      </div>
+      <div>
+        {%- if item.original_line_price != item.final_line_price -%}
+          <s class="small muted">{{ item.original_line_price | money }}</s><br>
+        {%- endif -%}
+        <strong>{{ item.final_line_price | money }}</strong>
+      </div>
+    </li>
+  {%- endfor -%}
+</ul>

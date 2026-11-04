@@ -1,0 +1,18 @@
+{%- assign k = section.settings.key -%}
+<section class="section section--deep {{ section.settings.accent }}" style="padding-bottom:calc(var(--section) * .7)">
+  <div class="page-width center">
+    <span class="eyebrow">{{ k | append: '.eyebrow' | t }}</span>
+    <h1>{{ k | append: '.heading' | t }}</h1>
+    <p class="lead">{{ k | append: '.text' | t }}</p>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Cabecera de página",
+  "settings": [
+    { "type": "text", "id": "key", "label": "Bloque de textos traducidos", "default": "pages.impact" },
+    { "type": "select", "id": "accent", "label": "Acento", "default": "", "options": [{ "value": "", "label": "Tinta" }, { "value": "accent-etiopia", "label": "Etiopía" }, { "value": "accent-kenia", "label": "Kenia" }, { "value": "accent-uganda", "label": "Uganda" }] }
+  ],
+  "presets": [{ "name": "Cabecera de página" }]
+}
+{% endschema %}

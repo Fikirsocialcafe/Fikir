@@ -3,10 +3,14 @@
 import { useState, useEffect } from "react";
 import { X, Gift } from "lucide-react";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function NewsletterPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
     const dismissed = localStorage.getItem("fikir-newsletter-dismissed");
@@ -24,13 +28,37 @@ export default function NewsletterPopup() {
     localStorage.setItem("fikir-newsletter-dismissed", "true");
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // TODO: Connect to email service (Mailchimp, Klaviyo, etc.)
-    setSubmitted(true);
-    setTimeout(() => {
-      handleClose();
-    }, 3000);
+    setErrorMsg(null);
+
+    if (!EMAIL_REGEX.test(email)) {
+      setErrorMsg("Introduce un email válido.");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, honeypot }),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setTimeout(() => handleClose(), 3500);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setErrorMsg(data?.error || "No hemos podido suscribirte. Inténtalo de nuevo.");
+        setStatus("error");
+      }
+    } catch (err) {
+      console.error("Newsletter fetch error:", err);
+      setErrorMsg("Error de conexión. Inténtalo de nuevo.");
+      setStatus("error");
+    }
   }
 
   if (!isOpen) return null;
@@ -58,7 +86,7 @@ export default function NewsletterPopup() {
           <X className="h-5 w-5" />
         </button>
 
-        {!submitted ? (
+        {status !== "success" ? (
           <>
             <div className="flex justify-center mb-4">
               <div className="w-12 h-12 rounded-full bg-fikir-gold/20 flex items-center justify-center">
@@ -72,7 +100,18 @@ export default function NewsletterPopup() {
               Suscríbete y recibe un <span className="font-semibold text-fikir-green">5% de descuento</span>{" "}
               en tu primera compra. Además, serás el primero en conocer nuestro impacto.
             </p>
-            <form onSubmit={handleSubmit} className="mt-6 space-y-3">
+            <form onSubmit={handleSubmit} className="mt-6 space-y-3" noValidate>
+              {/* Honeypot */}
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                className="hidden"
+                aria-hidden="true"
+              />
               <input
                 type="email"
                 required
@@ -84,10 +123,16 @@ export default function NewsletterPopup() {
               />
               <button
                 type="submit"
-                className="w-full px-4 py-3 rounded-lg bg-fikir-green font-body text-sm font-semibold text-fikir-cream tracking-wide uppercase transition-colors duration-200 hover:bg-fikir-green-light cursor-pointer"
+                disabled={status === "loading"}
+                className="w-full px-4 py-3 rounded-lg bg-fikir-green font-body text-sm font-semibold text-fikir-cream tracking-wide uppercase transition-colors duration-200 hover:bg-fikir-green-light cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Quiero mi 5% de descuento
+                {status === "loading" ? "Enviando..." : "Quiero mi 5% de descuento"}
               </button>
+              {status === "error" && errorMsg && (
+                <p className="font-body text-xs text-red-600 text-center" role="alert">
+                  {errorMsg}
+                </p>
+              )}
             </form>
             <p className="mt-3 font-body text-xs text-fikir-brown-light/60 text-center">
               Sin spam. Solo café e impacto.
@@ -101,10 +146,10 @@ export default function NewsletterPopup() {
               </div>
             </div>
             <h2 className="font-heading text-2xl font-bold text-fikir-brown">
-              Bienvenido/a
+              ¡Revisa tu email!
             </h2>
             <p className="mt-2 font-body text-sm text-fikir-brown-light">
-              Revisa tu email para obtener tu descuento.
+              Te enviamos tu código de descuento del 5%.
             </p>
           </div>
         )}

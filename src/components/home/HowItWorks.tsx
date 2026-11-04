@@ -4,9 +4,9 @@ const steps = [
   {
     icon: ShoppingBag,
     step: "01",
-    title: "Compras tu café",
+    title: "Eliges tu origen",
     description:
-      "Elige entre nuestros orígenes de Etiopía o Kenia. Café de especialidad, tostado con cuidado, directo a tu puerta.",
+      "Etiopía o Kenia, grano o molido. Café de especialidad SCA 85+, tostado en pequeños lotes y enviado en 3-5 días.",
   },
   {
     icon: Heart,

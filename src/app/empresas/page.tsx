@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Building2, Gift, Heart, Coffee, CheckCircle, ArrowRight, MessageSquare, Package, Sparkles } from "lucide-react";
+import EmpresasForm from "@/components/empresas/EmpresasForm";
 
 export const metadata: Metadata = {
   title: "Empresas",
@@ -75,25 +76,24 @@ export default function EmpresasPage() {
   return (
     <div className="pt-20 lg:pt-24">
       {/* Hero */}
-      <section className="py-20 bg-fikir-brown lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="flex items-center bg-fikir-cream py-16 lg:min-h-[420px] lg:py-20">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="font-body text-sm font-semibold tracking-[0.25em] uppercase text-fikir-gold">
+            <p className="font-body text-xs font-semibold uppercase tracking-[0.22em] text-fikir-gold">
               Para empresas
             </p>
-            <h1 className="mt-4 font-heading text-5xl font-bold text-fikir-cream sm:text-6xl lg:text-7xl">
-              Café con propósito
-              <br />
-              <span className="text-fikir-gold">para tu empresa</span>
+            <h1 className="mt-5 font-heading text-4xl font-medium leading-[1.05] text-fikir-brown sm:text-5xl lg:text-6xl">
+              Café con propósito{" "}
+              <em className="font-normal italic text-fikir-gold">para tu empresa</em>
             </h1>
-            <p className="mt-8 font-body text-lg leading-relaxed text-fikir-cream/80 max-w-xl">
+            <p className="mt-6 max-w-xl font-body text-base leading-relaxed text-fikir-brown-light sm:text-lg">
               Café de especialidad que financia proyectos para la infancia en origen. Para tu
               oficina, tus clientes o tus eventos. Sin ánimo de lucro, con
               todo el sabor.
             </p>
             <a
               href="#contacto-b2b"
-              className="mt-8 inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-fikir-gold font-body text-sm font-semibold text-fikir-brown tracking-wide uppercase transition-all duration-200 hover:bg-fikir-gold-light cursor-pointer"
+              className="mt-8 inline-flex cursor-pointer items-center gap-2 rounded-full bg-fikir-green px-7 py-4 font-body text-sm font-semibold uppercase tracking-wider text-fikir-cream transition duration-200 hover:-translate-y-0.5 hover:bg-fikir-brown"
             >
               Solicitar propuesta en 24h
               <ArrowRight className="h-4 w-4" />
@@ -214,84 +214,7 @@ export default function EmpresasPage() {
             </p>
           </div>
 
-          <form className="space-y-6">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div>
-                <label htmlFor="company" className="block font-body text-sm font-medium text-fikir-brown mb-2">
-                  Empresa
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  className="w-full px-4 py-3 rounded-lg border border-fikir-brown/10 bg-fikir-white font-body text-sm text-fikir-brown placeholder:text-fikir-brown-light/50 focus:outline-none focus:ring-2 focus:ring-fikir-gold/50 focus:border-fikir-gold transition-colors"
-                  placeholder="Nombre de la empresa"
-                />
-              </div>
-              <div>
-                <label htmlFor="b2b-name" className="block font-body text-sm font-medium text-fikir-brown mb-2">
-                  Nombre
-                </label>
-                <input
-                  type="text"
-                  id="b2b-name"
-                  name="name"
-                  className="w-full px-4 py-3 rounded-lg border border-fikir-brown/10 bg-fikir-white font-body text-sm text-fikir-brown placeholder:text-fikir-brown-light/50 focus:outline-none focus:ring-2 focus:ring-fikir-gold/50 focus:border-fikir-gold transition-colors"
-                  placeholder="Tu nombre"
-                />
-              </div>
-            </div>
-            <div>
-              <label htmlFor="b2b-email" className="block font-body text-sm font-medium text-fikir-brown mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                id="b2b-email"
-                name="email"
-                required
-                className="w-full px-4 py-3 rounded-lg border border-fikir-brown/10 bg-fikir-white font-body text-sm text-fikir-brown placeholder:text-fikir-brown-light/50 focus:outline-none focus:ring-2 focus:ring-fikir-gold/50 focus:border-fikir-gold transition-colors"
-                placeholder="tu@empresa.com"
-              />
-            </div>
-            <div>
-              <label htmlFor="service" className="block font-body text-sm font-medium text-fikir-brown mb-2">
-                Que te interesa
-              </label>
-              <select
-                id="service"
-                name="service"
-                className="w-full px-4 py-3 rounded-lg border border-fikir-brown/10 bg-fikir-white font-body text-sm text-fikir-brown focus:outline-none focus:ring-2 focus:ring-fikir-gold/50 focus:border-fikir-gold transition-colors cursor-pointer"
-              >
-                <option value="">Selecciona una opción</option>
-                <option value="oficina">Café para oficina</option>
-                <option value="regalo">Regalos corporativos</option>
-                <option value="rsc">RSC y eventos</option>
-                <option value="otro">Otro</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="b2b-message" className="block font-body text-sm font-medium text-fikir-brown mb-2">
-                Mensaje
-              </label>
-              <textarea
-                id="b2b-message"
-                name="message"
-                rows={4}
-                className="w-full px-4 py-3 rounded-lg border border-fikir-brown/10 bg-fikir-white font-body text-sm text-fikir-brown placeholder:text-fikir-brown-light/50 focus:outline-none focus:ring-2 focus:ring-fikir-gold/50 focus:border-fikir-gold transition-colors resize-none"
-                placeholder="Cuéntanos que necesitas..."
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full px-8 py-4 rounded-lg bg-fikir-green font-body text-sm font-semibold text-fikir-cream tracking-wide uppercase transition-colors duration-200 hover:bg-fikir-green-light cursor-pointer"
-            >
-              Solicitar propuesta en 24h
-            </button>
-            <p className="font-body text-xs text-fikir-brown-light/60 text-center">
-              Sin compromiso. Te respondemos en menos de 24 horas.
-            </p>
-          </form>
+          <EmpresasForm />
         </div>
       </section>
     </div>

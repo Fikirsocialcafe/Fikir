@@ -1,99 +1,85 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center bg-fikir-brown overflow-hidden">
-      {/* Background overlay pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-fikir-brown via-fikir-brown/95 to-fikir-green/30" />
-
-      {/* Decorative circles */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-fikir-gold/5 blur-3xl" />
-      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 rounded-full bg-fikir-green/10 blur-3xl" />
-
-      <div className="relative mx-auto max-w-7xl px-6 py-32 lg:px-8 lg:py-40">
-        <div className="max-w-3xl">
-          {/* Tagline */}
-          <p className="font-body text-sm font-semibold tracking-[0.25em] uppercase text-fikir-gold mb-6">
-            Café de especialidad &middot; Sin ánimo de lucro
+    <section
+      aria-labelledby="hero-title"
+      className="bg-fikir-cream pb-14 pt-10 sm:pb-20 sm:pt-14 lg:pb-28 lg:pt-20"
+    >
+      <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-10 px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:px-8">
+        {/* Copy */}
+        <div className="order-2 lg:order-1">
+          <p className="font-body text-xs font-semibold uppercase tracking-[0.22em] text-fikir-gold">
+            Café de especialidad · Sin ánimo de lucro
           </p>
 
-          {/* Main headline */}
-          <h1 className="font-heading text-5xl font-bold leading-tight text-fikir-cream sm:text-6xl lg:text-7xl xl:text-8xl">
-            Este café cambia
-            <br />
-            <span className="text-fikir-gold">más que tu mañana</span>
+          <h1
+            id="hero-title"
+            className="mt-5 font-heading text-5xl font-medium leading-[1.05] tracking-tight text-fikir-brown sm:text-6xl lg:text-[72px]"
+          >
+            Café que devuelve al origen
+            <em className="mt-1 block font-normal italic text-fikir-gold">
+              todo lo que puede.
+            </em>
           </h1>
 
-          {/* Clear value proposition - childhood focused */}
-          <p className="mt-8 max-w-xl font-body text-lg leading-relaxed text-fikir-cream/90 sm:text-xl">
-            Café de especialidad de Kenia y Etiopía.
-            <br />
-            <span className="font-semibold text-fikir-cream">100% del beneficio se reinvierte</span> en proyectos para la infancia en comunidades cafetaleras.
+          <p className="mt-6 max-w-[52ch] font-body text-base leading-relaxed text-fikir-brown-light sm:text-lg">
+            De cada bolsa que compras, el{" "}
+            <strong className="font-semibold text-fikir-brown">
+              100% del beneficio neto
+            </strong>{" "}
+            financia proyectos para la infancia en Etiopía y Kenia. Sin
+            intermediarios. Sin greenwashing.
           </p>
 
-          {/* Micro trust badges */}
-          <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:gap-6">
-            {[
-              "Café de especialidad",
-              "Sin ánimo de lucro",
-              "Impacto real en origen",
-            ].map((badge) => (
-              <div key={badge} className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-fikir-gold shrink-0" />
-                <span className="font-body text-sm text-fikir-cream/80">{badge}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* CTAs */}
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/tienda"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-fikir-gold font-body text-sm font-semibold text-fikir-brown tracking-wide uppercase transition-all duration-200 hover:bg-fikir-gold-light hover:shadow-lg cursor-pointer"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-fikir-green px-7 py-4 font-body text-sm font-semibold uppercase tracking-wider text-fikir-cream transition duration-200 hover:-translate-y-0.5 hover:bg-fikir-brown"
             >
-              Comprar café
-              <ArrowRight className="h-4 w-4" />
+              Empezar desde 14,99€
             </Link>
             <Link
               href="/impacto"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg border border-fikir-cream/30 font-body text-sm font-semibold text-fikir-cream tracking-wide uppercase transition-all duration-200 hover:bg-fikir-cream/10 hover:border-fikir-cream/50 cursor-pointer"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-fikir-brown/20 bg-transparent px-7 py-4 font-body text-sm font-semibold uppercase tracking-wider text-fikir-brown transition duration-200 hover:border-fikir-brown hover:bg-fikir-brown hover:text-fikir-cream"
             >
-              Ver impacto
+              Ver el proyecto en Meki
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
-          {/* Trust metrics - real data only */}
-          <div className="mt-16 flex flex-wrap items-center gap-8 border-t border-fikir-cream/10 pt-8">
-            <div>
-              <p className="font-heading text-3xl font-bold text-fikir-gold">2</p>
-              <p className="font-body text-xs text-fikir-cream/60 uppercase tracking-wide">
-                Proyectos activos
-              </p>
-            </div>
-            <div className="w-px h-12 bg-fikir-cream/10" />
-            <div>
-              <p className="font-heading text-3xl font-bold text-fikir-gold">2</p>
-              <p className="font-body text-xs text-fikir-cream/60 uppercase tracking-wide">
-                Comunidades
-              </p>
-            </div>
-            <div className="w-px h-12 bg-fikir-cream/10" />
-            <div>
-              <p className="font-heading text-3xl font-bold text-fikir-gold">100%</p>
-              <p className="font-body text-xs text-fikir-cream/60 uppercase tracking-wide">
-                Beneficio reinvertido
-              </p>
-            </div>
-            <div className="w-px h-12 bg-fikir-cream/10" />
-            <div>
-              <p className="font-heading text-3xl font-bold text-fikir-gold">85+</p>
-              <p className="font-body text-xs text-fikir-cream/60 uppercase tracking-wide">
-                Puntuación SCA
-              </p>
-            </div>
-          </div>
+          <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-3 font-body text-[13px] font-medium text-fikir-brown-light/85">
+            {["SCA 85+", "Envío en 3-5 días", "Proyectos reales en terreno"].map(
+              (item) => (
+                <li
+                  key={item}
+                  className="relative pl-[18px] before:absolute before:left-0 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full before:bg-fikir-gold"
+                >
+                  {item}
+                </li>
+              )
+            )}
+          </ul>
         </div>
+
+        {/* Media */}
+        <figure className="relative order-1 overflow-hidden rounded-3xl shadow-[0_16px_40px_rgba(45,42,38,0.18)] lg:order-2">
+          <div className="relative aspect-[4/5] w-full">
+            <Image
+              src="/images/fundador-meki.jpg"
+              alt="Pablo, fundador de Fikir, con niños del orfanato de Meki en Etiopía"
+              fill
+              priority
+              sizes="(max-width: 900px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+          <figcaption className="absolute bottom-5 left-5 max-w-[70%] rounded-xl bg-fikir-brown/55 px-3.5 py-2.5 font-body text-[12px] font-medium leading-snug tracking-wide text-fikir-cream backdrop-blur-md">
+            Pablo, fundador de Fikir, en el orfanato de Meki (Etiopía).
+          </figcaption>
+        </figure>
       </div>
     </section>
   );

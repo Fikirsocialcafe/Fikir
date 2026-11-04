@@ -1,0 +1,17 @@
+{%- comment -%}
+  Contenedor para bloques de apps (por ejemplo, el widget de reseñas de Judge.me).
+{%- endcomment -%}
+<section class="page-width section-apps">
+  {%- for block in section.blocks -%}
+    <div {{ block.shopify_attributes }}>{% render block %}</div>
+  {%- endfor -%}
+</section>
+{% schema %}
+{
+  "name": "Apps",
+  "tag": "div",
+  "settings": [],
+  "blocks": [{ "type": "@app" }],
+  "presets": [{ "name": "Apps" }]
+}
+{% endschema %}

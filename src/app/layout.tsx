@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import NewsletterPopup from "@/components/ui/NewsletterPopup";
+import CartDrawer from "@/components/cart/CartDrawer";
+import { CartProvider } from "@/context/CartContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.fikircafe.com"),
@@ -102,8 +104,11 @@ export default function RootLayout({
             }),
           }}
         />
-        <Navbar />
-        <main className="flex-1">{children}</main>
+        <CartProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <CartDrawer />
+        </CartProvider>
         <Footer />
         <NewsletterPopup />
       </body>

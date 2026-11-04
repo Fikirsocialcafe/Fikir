@@ -1,0 +1,57 @@
+{%- assign b2b = false -%}
+{%- if section.settings.mode == 'b2b' -%}{%- assign b2b = true -%}{%- endif -%}
+<section class="section{% if b2b %} section--deep{% endif %}" id="formulario">
+  <div class="page-width split" style="align-items:start">
+    <div>
+      <span class="eyebrow">{% if b2b %}{{ 'contact.b2b_eyebrow' | t }}{% else %}{{ 'contact.eyebrow' | t }}{% endif %}</span>
+      <h2>{% if b2b %}{{ 'contact.b2b_heading' | t }}{% else %}{{ 'contact.heading' | t }}{% endif %}</h2>
+      <p class="muted">{% if b2b %}{{ 'contact.b2b_text' | t }}{% else %}{{ 'contact.text' | t }}{% endif %}</p>
+      <ul class="perks">
+        <li>{% render 'icon', name: 'mail' %}<span><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></span></li>
+        {%- if settings.whatsapp != blank -%}<li>{% render 'icon', name: 'whatsapp' %}<span><a href="https://wa.me/{{ settings.whatsapp }}" target="_blank" rel="noopener">WhatsApp +{{ settings.whatsapp | slice: 0, 2 }} {{ settings.whatsapp | slice: 2, 9 }}</a></span></li>{%- endif -%}
+      </ul>
+    </div>
+    <div>
+      {%- form 'contact', id: section.id -%}
+        {%- if form.posted_successfully? -%}
+          <p class="notice notice--success" role="status">{{ 'contact.success' | t }}</p>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <div class="notice notice--error" role="alert">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+        {%- if b2b -%}<input type="hidden" name="contact[tipo]" value="Empresas">{%- endif -%}
+        <div class="form-grid">
+          <div class="field"><label for="name-{{ section.id }}">{{ 'contact.name' | t }}</label><input id="name-{{ section.id }}" name="contact[name]" autocomplete="name" required value="{{ form.name }}"></div>
+          <div class="field"><label for="email-{{ section.id }}">{{ 'contact.email' | t }}</label><input id="email-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}"></div>
+        </div>
+        {%- if b2b -%}
+          <div class="form-grid">
+            <div class="field"><label for="company-{{ section.id }}">{{ 'contact.company' | t }}</label><input id="company-{{ section.id }}" name="contact[empresa]" autocomplete="organization" required></div>
+            <div class="field"><label for="type-{{ section.id }}">{{ 'contact.business_type' | t }}</label>
+              <select id="type-{{ section.id }}" name="contact[tipo_negocio]">
+                <option>{{ 'contact.type_office' | t }}</option>
+                <option>{{ 'contact.type_horeca' | t }}</option>
+                <option>{{ 'contact.type_gift' | t }}</option>
+                <option>{{ 'contact.type_other' | t }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label for="volume-{{ section.id }}">{{ 'contact.volume' | t }}</label><input id="volume-{{ section.id }}" name="contact[volumen]"></div>
+        {%- endif -%}
+        <div class="field"><label for="phone-{{ section.id }}">{{ 'contact.phone' | t }}</label><input id="phone-{{ section.id }}" type="tel" name="contact[phone]" autocomplete="tel"></div>
+        <div class="field"><label for="msg-{{ section.id }}">{{ 'contact.message' | t }}</label><textarea id="msg-{{ section.id }}" name="contact[body]" required>{{ form.body }}</textarea></div>
+        <p class="small muted">{{ 'contact.privacy_html' | t }}</p>
+        <button class="button" type="submit">{{ 'contact.send' | t }}</button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Formulario de contacto",
+  "settings": [
+    { "type": "select", "id": "mode", "label": "Tipo", "default": "contact", "options": [{ "value": "contact", "label": "Contacto" }, { "value": "b2b", "label": "Empresas" }] }
+  ],
+  "presets": [{ "name": "Formulario de contacto" }]
+}
+{% endschema %}

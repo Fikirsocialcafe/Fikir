@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "header": { "type": "page-header", "settings": { "key": "pages.b2b" } },
+    "offer": { "type": "image-with-text", "settings": { "key": "b2b.offer", "asset": "home-flatlay.jpg" } },
+    "steps": { "type": "steps", "settings": { "key": "b2b.steps", "background": "deep" } },
+    "impact": { "type": "image-with-text", "settings": { "key": "b2b.impact", "asset": "origen-recoleccion.jpg", "wide": true, "reverse": true } },
+    "form": { "type": "contact-form", "settings": { "mode": "b2b" } }
+  },
+  "order": ["header", "offer", "steps", "impact", "form"]
+}
