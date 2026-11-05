@@ -65,7 +65,7 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-4 font-body text-sm leading-relaxed text-fikir-cream/70 max-w-xs">
-              Café de especialidad sin ánimo de lucro. Todo el beneficio se reinvierte en proyectos para la infancia en origen.
+              Café de especialidad con propósito. Un negocio que reinvierte el 100% de su beneficio neto en proyectos para la infancia en origen.
             </p>
             <p className="mt-6 font-body text-sm italic text-fikir-gold">
               &ldquo;Café con impacto en su origen&rdquo;

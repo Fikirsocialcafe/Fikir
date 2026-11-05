@@ -4,6 +4,7 @@ import { useState } from "react";
 import { X, Minus, Plus, Trash2, ShoppingBag, Tag, Coffee } from "lucide-react";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import { formatImpactDays, impactDaysFor } from "@/lib/impact";
 
 function formatMoney(amount: string, currencyCode: string): string {
   const value = Number(amount);
@@ -267,6 +268,15 @@ export default function CartDrawer() {
               </div>
             </div>
 
+            {total && impactDaysFor(Number(total.amount)) > 0 && (
+              <p className="rounded-lg bg-fikir-green/10 px-3 py-2 font-body text-sm text-fikir-green">
+                Tu pedido da{" "}
+                <strong className="font-semibold">
+                  {formatImpactDays(impactDaysFor(Number(total.amount)))}
+                </strong>{" "}
+                de comida y atención médica a un niño.
+              </p>
+            )}
             <p className="font-body text-xs text-fikir-brown-light">
               Impuestos y envío calculados en el checkout.
             </p>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { DAYS_PER_BAG } from "@/lib/impact";
 
 export default function HeroSection() {
   return (
@@ -12,7 +13,7 @@ export default function HeroSection() {
         {/* Copy */}
         <div className="order-2 lg:order-1">
           <p className="font-body text-xs font-semibold uppercase tracking-[0.22em] text-fikir-gold">
-            Café de especialidad · Sin ánimo de lucro
+            Café de especialidad · Empresa con propósito
           </p>
 
           <h1
@@ -30,8 +31,12 @@ export default function HeroSection() {
             <strong className="font-semibold text-fikir-brown">
               100% del beneficio neto
             </strong>{" "}
-            financia proyectos para la infancia en Etiopía y Kenia. Sin
+            financia proyectos para la infancia en Etiopía, Kenia y Uganda. Sin
             intermediarios. Sin greenwashing.
+          </p>
+
+          <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-fikir-green/10 px-4 py-2 font-body text-sm font-semibold text-fikir-green">
+            Cada bolsa = {DAYS_PER_BAG} días de comida y atención médica para un niño
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">

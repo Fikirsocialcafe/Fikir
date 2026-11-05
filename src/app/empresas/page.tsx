@@ -88,7 +88,7 @@ export default function EmpresasPage() {
             </h1>
             <p className="mt-6 max-w-xl font-body text-base leading-relaxed text-fikir-brown-light sm:text-lg">
               Café de especialidad que financia proyectos para la infancia en origen. Para tu
-              oficina, tus clientes o tus eventos. Sin ánimo de lucro, con
+              oficina, tus clientes o tus eventos. Un negocio con propósito, con
               todo el sabor.
             </p>
             <a
@@ -179,7 +179,7 @@ export default function EmpresasPage() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
             {[
               { icon: Coffee, title: "Calidad SCA 85+", desc: "Café de especialidad, no café comercial" },
-              { icon: Heart, title: "Sin ánimo de lucro", desc: "Tu compra financia la infancia en origen" },
+              { icon: Heart, title: "100% del beneficio reinvertido", desc: "Tu compra financia la infancia en origen" },
               { icon: Building2, title: "RSC real", desc: "Certificado de impacto para tu empresa" },
               { icon: Gift, title: "Personalizable", desc: "Adaptamos el formato a tus necesidades" },
             ].map((item) => (

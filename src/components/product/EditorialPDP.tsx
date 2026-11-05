@@ -21,6 +21,7 @@ import {
   Minus,
   Plus,
 } from "lucide-react";
+import { formatImpactDays, impactDaysFor } from "@/lib/impact";
 
 const MIN_QTY = 1;
 const MAX_QTY = 10;
@@ -325,6 +326,16 @@ export default function EditorialPDP({ product, shopifyAvailable, shopifyPrice }
                     ? "Añadiendo..."
                     : `Comprar — ${(unitPrice * quantity).toFixed(2).replace(".", ",")}€`}
               </button>
+              <p className="mt-3 flex items-center justify-center gap-2 font-body text-sm text-fikir-brown-light">
+                <Heart className="h-4 w-4 shrink-0 text-fikir-green" />
+                <span>
+                  {quantity === 1 ? "Esta bolsa da" : `Estas ${quantity} bolsas dan`}{" "}
+                  <strong className="font-semibold text-fikir-brown">
+                    {formatImpactDays(impactDaysFor(unitPrice * quantity))}
+                  </strong>{" "}
+                  de comida y atención médica a un niño
+                </span>
+              </p>
               {buyError && (
                 <p className="mt-3 font-body text-sm text-red-600" role="alert">
                   {buyError}

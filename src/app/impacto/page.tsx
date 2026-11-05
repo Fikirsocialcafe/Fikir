@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, BookOpen, Heart, Users, TrendingUp, Eye, Shield, Calendar, MapPin, Camera } from "lucide-react";
+import { DAYS_PER_BAG } from "@/lib/impact";
 
 export const metadata: Metadata = {
   title: "Impacto",
@@ -349,9 +350,18 @@ export default function ImpactoPage() {
           </div>
 
           <div className="max-w-3xl mx-auto">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
               <div className="bg-fikir-white rounded-2xl p-8">
-                <p className="font-heading text-4xl font-bold text-fikir-brown-light">~10,50€</p>
+                <p className="font-heading text-4xl font-bold text-fikir-brown-light">~1,36€</p>
+                <p className="mt-2 font-body text-sm font-semibold text-fikir-brown">IVA (10%)</p>
+                <div className="mt-4 pt-4 border-t border-fikir-brown/10">
+                  <p className="font-body text-xs text-fikir-brown-light leading-relaxed">
+                    Impuesto que va a Hacienda. Sin IVA, la bolsa son 13,63€.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-fikir-white rounded-2xl p-8">
+                <p className="font-heading text-4xl font-bold text-fikir-brown-light">~9,54€</p>
                 <p className="mt-2 font-body text-sm font-semibold text-fikir-brown">Costes operativos</p>
                 <div className="mt-4 pt-4 border-t border-fikir-brown/10">
                   <p className="font-body text-xs text-fikir-brown-light leading-relaxed">
@@ -360,7 +370,7 @@ export default function ImpactoPage() {
                 </div>
               </div>
               <div className="bg-fikir-green rounded-2xl p-8">
-                <p className="font-heading text-4xl font-bold text-fikir-cream">~4,50€</p>
+                <p className="font-heading text-4xl font-bold text-fikir-cream">~4,09€</p>
                 <p className="mt-2 font-body text-sm font-semibold text-fikir-cream">
                   Beneficio neto → 100% reinvertido
                 </p>
@@ -368,12 +378,15 @@ export default function ImpactoPage() {
                   <p className="font-body text-xs text-fikir-cream/80 leading-relaxed">
                     Proyectos para la infancia en Etiopía, Kenia y Uganda. Sin intermediarios.
                   </p>
+                  <p className="mt-3 font-body text-sm font-semibold text-fikir-cream">
+                    = {DAYS_PER_BAG} días de comida y atención médica para un niño
+                  </p>
                 </div>
               </div>
             </div>
             <p className="mt-6 font-body text-xs text-fikir-brown-light/70 text-center leading-relaxed">
               El &ldquo;100% del beneficio&rdquo; significa el 100% del excedente tras cubrir costes, no el
-              100% del precio de venta. Desglose aproximado; publicaremos cifras reales auditadas a medida que crezcamos.
+              100% del precio de venta. El beneficio es aproximadamente el 30% del precio sin IVA. Desglose aproximado; publicaremos cifras reales auditadas a medida que crezcamos.
             </p>
           </div>
         </div>
