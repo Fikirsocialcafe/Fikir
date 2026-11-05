@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, BookOpen, Heart, Users, TrendingUp, Eye, Shield, Calendar, MapPin, Camera } from "lucide-react";
+import { DAYS_PER_BAG } from "@/lib/impact";
 
 export const metadata: Metadata = {
   title: "Impacto",
@@ -367,6 +368,9 @@ export default function ImpactoPage() {
                 <div className="mt-4 pt-4 border-t border-fikir-cream/20">
                   <p className="font-body text-xs text-fikir-cream/80 leading-relaxed">
                     Proyectos para la infancia en Etiopía, Kenia y Uganda. Sin intermediarios.
+                  </p>
+                  <p className="mt-3 font-body text-sm font-semibold text-fikir-cream">
+                    = {DAYS_PER_BAG} días de comida y atención médica para un niño
                   </p>
                 </div>
               </div>

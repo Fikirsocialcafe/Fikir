@@ -3,9 +3,9 @@ import { Heart, Sprout, Users } from "lucide-react";
 const values = [
   {
     icon: Heart,
-    title: "Sin ánimo de lucro",
+    title: "Un negocio con propósito",
     description:
-      "Fikir no es un negocio. Es un proyecto con alma. Cada euro de beneficio se reinvierte en las comunidades donde nace nuestro café.",
+      "Fikir es un negocio, y por eso funciona: cuanto más café vendemos, más niños comen y reciben atención médica. El 100% del beneficio neto se reinvierte en las comunidades donde nace nuestro café.",
   },
   {
     icon: Sprout,

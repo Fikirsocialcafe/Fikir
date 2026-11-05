@@ -15,6 +15,7 @@ import {
   type ShopifyProductSummary,
 } from "@/lib/shopify";
 import { ArrowRight, CheckCircle } from "lucide-react";
+import { DAYS_PER_BAG } from "@/lib/impact";
 
 export const metadata: Metadata = {
   title: "Tienda",
@@ -81,8 +82,9 @@ export default async function TiendaPage() {
               Café con propósito
             </h1>
             <p className="mt-6 font-body text-lg leading-relaxed text-fikir-cream/85">
-              Café de especialidad tostado en pequeños lotes. Cada bolsa financia
-              proyectos para la infancia en comunidades cafetaleras.
+              Café de especialidad tostado en pequeños lotes. Cada bolsa de 250 g
+              da {DAYS_PER_BAG} días de comida y atención médica a un niño en
+              las comunidades donde nace el café.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-4">
               {[
